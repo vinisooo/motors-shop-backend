@@ -6,7 +6,7 @@ import { Comment } from "../../entities/comment.entity";
 declare global {
     namespace Express {
         interface Request {
-            foundById: Advertisement | User | Address | Comment,
+            foundById: any,
             loggedUser: {is_advertiser: boolean, id: string}
         }
     }
