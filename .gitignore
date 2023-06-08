@@ -1,3 +1,6 @@
 node_modules/
+<<<<<<< HEAD
 *lock*
+=======
+>>>>>>> b2495ff6ff8d719bed5b9959cb5ddf1bea1e18a4
 .env
