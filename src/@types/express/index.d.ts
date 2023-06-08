@@ -7,6 +7,7 @@ declare global {
     namespace Express {
         interface Request {
             foundById: Advertisement | User | Address | Comment,
+            loggedUser: {is_advertiser: boolean, id: string}
         }
     }
 }
