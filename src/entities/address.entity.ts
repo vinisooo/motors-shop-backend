@@ -17,8 +17,8 @@ class Address {
     @Column({length: 40})
     street: string
 
-    @Column({type:"integer"})
-    number: number
+    @Column()
+    number: string
 
     @Column({length: 128, nullable:true})
     complement: string

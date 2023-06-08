@@ -1,5 +1,7 @@
-import {Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm"
+import {Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm"
 import { Address } from "./address.entity"
+import { Comment } from "./comment.entity"
+import { Advertisement } from "./advertisement.entity"
 
 @Entity("users")
 class User {
@@ -42,6 +44,12 @@ class User {
     @OneToOne(() => Address)
     @JoinColumn()
     address: Address
+
+    @OneToMany(() => Comment, comments => comments.user)
+    comments: Comment[]
+
+    @OneToMany(() => Advertisement, advertisements => advertisements.user)
+    advertisements: Advertisement[]
 }
 
 export {User}
