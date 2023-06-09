@@ -6,9 +6,9 @@ const createAnnouncementController = async (req: Request, res: Response) => {
 
     const userId = res.locals.userId
 
-    const newAdverts = await createAnnouncementService(userId)
+    const newAnnouncement = await createAnnouncementService(userId)
 
-    return res.status(201).json(newAdverts)
+    return res.status(201).json(newAnnouncement)
 
 }
 
