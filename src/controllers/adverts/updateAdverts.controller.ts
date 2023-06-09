@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
-import { updateAnnouncementService } from "../../services/adverts/updateAdverts.service";
+import { TAdvertisementReq } from "../../interfaces/advertisements.interfaces";
+import { updateAdvertisementService } from "../../services/adverts/updateAdverts.service";
 
 
-const updateAnnouncementController = async (req: Request, res: Response) => {
-
-    const announcementId = req.params.id
-    const update = await updateAnnouncementService( announcementId)
-    return res.json(update)
+const updateAdvertisementController = async (req: Request, res: Response) => {
+    const data: TAdvertisementReq = req.body
+    const advertisementId: string = req.params.id
+    const updatedAdvertisement = await updateAdvertisementService(data, advertisementId)
     
+    return res.status(200).json(updatedAdvertisement)
 }
 
-export {updateAnnouncementController}
+export {updateAdvertisementController}
