@@ -1,3 +1,4 @@
+import "reflect-metadata";
 require("dotenv").config();
 import "express-async-errors";
 
