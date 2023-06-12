@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { addressRegisterSchema } from "./address.schemas";
 
 const userSchema =z.object({
     id: z.string(),
@@ -11,6 +12,7 @@ const userSchema =z.object({
     profile_img: z.string().optional(),
     is_advertiser: z.boolean(),
     description: z.string().optional(),
+    address: addressRegisterSchema,
     created_at: z.string(),
     updated_at: z.string(),
 });

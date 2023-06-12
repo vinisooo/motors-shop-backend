@@ -14,4 +14,4 @@ const addressRegisterSchema = addressSchema.omit({id: true});
 type tAddressRegisterSchema = z.infer<typeof addressRegisterSchema>;
 type tAddressSchema = z.infer<typeof addressSchema>;
 
-export { addressSchema, tAddressRegisterSchema, tAddressSchema }
+export { addressSchema, addressRegisterSchema, tAddressRegisterSchema, tAddressSchema }
