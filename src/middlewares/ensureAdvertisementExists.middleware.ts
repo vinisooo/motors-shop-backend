@@ -3,7 +3,7 @@ import { AppDataSource } from "../data-source";
 import { Advertisement } from "../entities/advertisement.entity";
 import { AppError } from "../errors";
 
-export const ensureAdvertisementExistsMiddleware = async(req: Request, res: Response, next: NextFunction) => {
+const ensureAdvertisementExistsMiddleware = async(req: Request, res: Response, next: NextFunction) => {
     const advertisementRepository = AppDataSource.getRepository(Advertisement);
 
     const advertisementId: string = req.params.id
@@ -24,3 +24,5 @@ export const ensureAdvertisementExistsMiddleware = async(req: Request, res: Resp
     req.foundById = advertisement;
     return next();
 }
+
+export { ensureAdvertisementExistsMiddleware }
