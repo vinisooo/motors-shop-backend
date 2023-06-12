@@ -5,7 +5,7 @@ import { AppDataSource } from "../../data-source";
 import { compare } from "bcryptjs";
 import { AppError } from "../../errors";
 import  Jwt  from "jsonwebtoken";
-import { tUserLogin } from '../../schemas/loginSchema';
+import { tUserLogin } from '../../schemas/login.schemas';
 
 const secretKey=process.env.SECRET_KEY!
 

@@ -5,12 +5,12 @@ import { updateAnnouncementController } from "../controllers/adverts/updateAdver
 import { deleteAnnouncementController } from "../controllers/adverts/deleteAdverts.controller";
 
 
-const advertsRoutes = Router()
+const advertsRoutes = Router();
 
-advertsRoutes.post("", createAnnouncementController)
-advertsRoutes.get("",listAdvertsController)
-advertsRoutes.patch("", updateAnnouncementController)
-advertsRoutes.delete("", deleteAnnouncementController)
+advertsRoutes.post("", createAnnouncementController);
+advertsRoutes.get("",listAdvertsController);
+advertsRoutes.patch("", updateAnnouncementController);
+advertsRoutes.delete("", deleteAnnouncementController);
 
 
 
