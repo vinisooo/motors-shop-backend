@@ -13,9 +13,10 @@ const dataSourceConfig = ():DataSourceOptions => {
         console.log("Using SQLITE3 database. Tip: Check if your .env file has DATABASE_URL and NODE_ENV as dev to use postgresSQL");
         return {
             type: 'sqlite',
-            database: ':memory:',
+            database: 'SQLITE3.db',
             synchronize: true,
             entities: [entitiesPath],
+            migrations: [migrationsPath]
         };
     }
 
