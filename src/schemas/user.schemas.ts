@@ -15,4 +15,9 @@ const userSchema =z.object({
     updated_at: z.string(),
 });
 
-export { userSchema }
+const userRegisterSchema = userSchema.omit({id: true, created_at: true, updated_at: true});
+
+type tUser = z.infer<typeof userSchema>;
+type tUserRegister = z.infer<typeof userRegisterSchema>;
+
+export { userSchema, tUser, tUserRegister, userRegisterSchema }
