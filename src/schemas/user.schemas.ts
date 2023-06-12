@@ -18,8 +18,9 @@ const userSchema =z.object({
 });
 
 const userRegisterSchema = userSchema.omit({id: true, created_at: true, updated_at: true});
+const noPasswordUserSchema = userSchema.omit({password: true})
 
 type tUser = z.infer<typeof userSchema>;
 type tUserRegister = z.infer<typeof userRegisterSchema>;
 
-export { userSchema, tUser, tUserRegister, userRegisterSchema }
+export { userSchema, tUser, tUserRegister, userRegisterSchema, noPasswordUserSchema }

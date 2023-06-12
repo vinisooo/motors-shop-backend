@@ -4,10 +4,11 @@ import { validateDataMiddleware } from "../middlewares/validateData.middleware";
 import { userLoginSchema } from "../schemas/login.schemas";
 import { userRegisterSchema } from "../schemas/user.schemas";
 import { registerUserController } from "../controllers/user/registerUser.controller";
+import { ensureUserIsNotRegisteredMiddleware } from "../middlewares/ensureUserIsNotRegistered.middleware";
 
 const userRouter=Router();
 
 userRouter.post("/login",validateDataMiddleware(userLoginSchema),loginController);
-userRouter.post("/register", validateDataMiddleware(userRegisterSchema), registerUserController);
+userRouter.post("/register", validateDataMiddleware(userRegisterSchema), ensureUserIsNotRegisteredMiddleware, registerUserController);
 
 export {userRouter}
