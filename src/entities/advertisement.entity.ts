@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user.entity";
 import { Comment } from "./comment.entity";
-import { Gallery_Announce } from "./gallery_announce.entity";
+import { GalleryAdvertisement } from "./galleryAdvertisement.entity";
 
 @Entity("advertisements")
 class Advertisement {
@@ -30,13 +30,13 @@ class Advertisement {
     price: number
 
     @Column({length: 150})
-    cover_img: string
+    coverImage: string
 
     @Column({type: 'text' , nullable: true})
     description?: string | undefined | null
 
     @Column({default: true})
-    is_available: boolean
+    isAvailable: boolean
 
     @ManyToOne(()=> User)
     user: User
@@ -44,8 +44,8 @@ class Advertisement {
     @OneToMany(() => Comment, comments => comments.advertisement)
     comments: Comment[]
 
-    @OneToMany(() => Gallery_Announce, gallery_announces => gallery_announces.advertisement)
-    gallery_announces: Gallery_Announce[]
+    @OneToMany(() => GalleryAdvertisement, galleryAdvertisement => galleryAdvertisement.advertisement)
+    galleryAdvertisement: GalleryAdvertisement[]
 }
 
 export {Advertisement}

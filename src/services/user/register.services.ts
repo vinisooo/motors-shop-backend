@@ -2,15 +2,14 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { Address } from "../../entities/address.entity";
 import { Repository } from "typeorm";
-import { tAddressRegisterSchema } from "../../schemas/address.schemas";
 
 const registerUserService = async(data: User) => {
     const userRepository: Repository<User> = AppDataSource.getRepository(User);
     const addressRepository: Repository<Address> = AppDataSource.getRepository(Address);
     
-    const addressData: tAddressRegisterSchema = data.address;
+    const addressData: Address = data.address;
 
-    const address = addressRepository.create(addressData as Address);
+    const address = addressRepository.create(addressData);
     await addressRepository.save(address);
 
     const user = userRepository.create({...data, address: address});

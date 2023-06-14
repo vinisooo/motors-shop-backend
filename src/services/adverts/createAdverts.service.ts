@@ -3,30 +3,34 @@ import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors";
+import { TAdvertisementReq, TAdvertisementRes } from "../../interfaces/advertisements.interfaces";
+import { advertisementSchema } from "../../schemas/advertisements.schema";
 
 
 
-const createAnnouncementService = async (userId: string) => {
+const createAdvertisementService = async (data: TAdvertisementReq): Promise<TAdvertisementRes> => {
     
-    const announcementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
-    const usersRepository: Repository<User> = AppDataSource.getRepository(User)
+    const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
+    // const usersRepository: Repository<User> = AppDataSource.getRepository(User)
 
-    const user: User | null = await usersRepository.findOneBy({
-        id: userId
+    // const user: User | null = await usersRepository.findOneBy({
+    //     id: userId
+    // })
+
+    // if (!user) {
+    //     throw new AppError("User not found", 404)
+    // }
+
+    const advertisement: Advertisement = advertisementRepository.create({
+        ...data,
+        // user
     })
 
-    if (!user) {
-        throw new AppError("User not found", 404)
-    }
+    await advertisementRepository.save(advertisement)
 
-    const Announcement: Advertisement = announcementRepository.create({
-       // ...data,
-        user
-    })
+    const validatedAdvertisement = advertisementSchema.parse(advertisement)
 
-    await announcementRepository.save(Announcement)
-
-    return Announcement
+    return validatedAdvertisement
 }
 
-export { createAnnouncementService }
+export { createAdvertisementService }

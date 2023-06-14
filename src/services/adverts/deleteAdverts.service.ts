@@ -1,19 +1,19 @@
-import { Repository } from "typeorm"
 import { AppDataSource } from "../../data-source"
 import { Advertisement } from "../../entities/advertisement.entity"
 import { AppError } from "../../errors"
+import { TAdvertisement } from "../../interfaces/advertisements.interfaces"
 
 
-const deleteAnnouncementService = async (announcementId: string): Promise<void> => {
+const deleteAdvertisementService = async (advertisementId: string): Promise<void> => {
 
-    const announcementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
-    const announcement: Advertisement | null = await announcementRepository.findOneBy({ id: announcementId })
+    const advertisementRepository: TAdvertisement = AppDataSource.getRepository(Advertisement)
+    const advertisement: Advertisement | null = await advertisementRepository.findOneBy({ id: advertisementId })
 
-    if (!announcement) {
-        throw new AppError("Announcement not found", 404)
+    if (!advertisement) {
+        throw new AppError("Advertisement not found", 404)
     }
 
-    await announcementRepository.remove(announcement)
+    await advertisementRepository.remove(advertisement)
 }
 
-export { deleteAnnouncementService }
+export { deleteAdvertisementService }
