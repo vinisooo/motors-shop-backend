@@ -1,8 +1,8 @@
 import { Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Advertisement } from "./advertisement.entity";
 
-@Entity("gallery_announce")
-class Gallery_Announce {
+@Entity("gallery_advertisement")
+class GalleryAdvertisement {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
@@ -10,4 +10,4 @@ class Gallery_Announce {
     advertisement: Advertisement
 }
 
-export {Gallery_Announce}
+export {GalleryAdvertisement}

@@ -27,19 +27,19 @@ class User {
     birthdate: Date
 
     @Column({length:127, nullable:true})
-    profile_img: string
+    profileImg: string
 
     @Column()
-    is_advertiser: boolean
+    isAdvertiser: boolean
 
     @Column({type: 'text' , nullable: true})
     description?: string | undefined | null
 
     @CreateDateColumn({type: "date"})
-    created_at: Date
+    createdAt: Date
 
     @UpdateDateColumn({type: "date"})
-    updated_at: Date
+    updatedAt: Date
 
     @OneToOne(() => Address)
     @JoinColumn()

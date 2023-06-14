@@ -11,7 +11,7 @@ class Comment {
     comment: string
 
     @CreateDateColumn({type: "date"})
-    created_at: Date
+    createdAt: Date
 
     @ManyToOne(() => User)
     user: User

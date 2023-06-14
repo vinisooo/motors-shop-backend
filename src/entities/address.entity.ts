@@ -6,7 +6,7 @@ class Address {
     id: string
 
     @Column({length: 8})
-    zip_code: string
+    zipCode: string
 
     @Column({length:2})
     state: string

@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
-import { createAnnouncementService } from "../../services/adverts/createAdverts.service";
+import { createAdvertisementService } from "../../services/adverts/createAdverts.service";
 
 
-const createAnnouncementController = async (req: Request, res: Response) => {
+const createAdvertisementController = async (req: Request, res: Response) => {
 
-    const userId = res.locals.userId
+    // const userId = req.loggedUser.id
+    const data = req.body
+    const newAdvertisement = await createAdvertisementService(data)
 
-    const newAnnouncement = await createAnnouncementService(userId)
-
-    return res.status(201).json(newAnnouncement)
+    return res.status(201).json(newAdvertisement)
 
 }
 
-export { createAnnouncementController }
+export { createAdvertisementController }
 
 
