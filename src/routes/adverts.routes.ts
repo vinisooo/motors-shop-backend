@@ -8,11 +8,13 @@ import { updateAdvertisementController } from "../controllers/adverts/updateAdve
 import { validateDataMiddleware } from "../middlewares/validateData.middleware";
 // import { validateTokenMiddleware } from "../middlewares/validateToken.middleware";
 import { advertisementReqSchema, advertisementUpdateReqSchema } from "../schemas/advertisements.schema";
+import { validateTokenMiddleware } from "../middlewares/validateToken.middleware";
 
 
 const advertsRoutes = Router();
 
-advertsRoutes.post("",
+advertsRoutes.post("",  
+                  validateTokenMiddleware,
                   validateDataMiddleware(advertisementReqSchema),
                   createAdvertisementController
                   )
