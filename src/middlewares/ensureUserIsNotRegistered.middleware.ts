@@ -9,12 +9,12 @@ const ensureUserIsNotRegisteredMiddleware = async(req: Request, res: Response, n
     
     const userData = req.body;
 
-    const foundByEmail = await userRepository.exist({
+    const foundByEmail = await userRepository.findOne({
         where:{
             email: userData.email,
         }
     }); 
-    const foundByCpf = await userRepository.exist({
+    const foundByCpf = await userRepository.findOne({
         where:{
             cpf: userData.cpf,
         }

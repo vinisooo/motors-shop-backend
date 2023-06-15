@@ -30,7 +30,7 @@ class User {
     @Column({length:127, nullable:true})
     profileImg: string
 
-    @Column()
+    @Column({default:false})
     isAdvertiser: boolean
 
     @Column({type: 'text' , nullable: true})
