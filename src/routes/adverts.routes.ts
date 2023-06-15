@@ -9,6 +9,8 @@ import { validateDataMiddleware } from "../middlewares/validateData.middleware";
 // import { validateTokenMiddleware } from "../middlewares/validateToken.middleware";
 import { advertisementReqSchema, advertisementUpdateReqSchema } from "../schemas/advertisements.schema";
 import { validateTokenMiddleware } from "../middlewares/validateToken.middleware";
+import { isAdvertisementOwnerMiddleware } from "../middlewares/isAdvertisementOwner.middleware";
+import { ensureAdvertisementExistsMiddleware } from "../middlewares/ensureAdvertisementExists.middleware";
 
 
 const advertsRoutes = Router();
@@ -21,11 +23,17 @@ advertsRoutes.post("",
 advertsRoutes.get("", 
                   listAdvertsController
                   )
-advertsRoutes.patch("",
+advertsRoutes.patch("/:id",
+                  validateTokenMiddleware,
+                  ensureAdvertisementExistsMiddleware,
+                  isAdvertisementOwnerMiddleware,
                   validateDataMiddleware(advertisementUpdateReqSchema),
                   updateAdvertisementController
                   )
-advertsRoutes.delete("",
+advertsRoutes.delete("/:id",
+                  validateTokenMiddleware,
+                  ensureAdvertisementExistsMiddleware,
+                  isAdvertisementOwnerMiddleware,
                   deleteAdvertisementController
                   )
 
