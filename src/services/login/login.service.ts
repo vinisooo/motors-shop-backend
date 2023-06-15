@@ -18,10 +18,11 @@ const loginService=async(data:tUserLogin):Promise<string>=>{
     if(!userFind){
         throw new AppError('user email or password invalid', 400)
     }  
-
-    const passwordIsValid= await compare(data.password,userFind!.password)
-
+    
+    const passwordIsValid= await compare(data.password,userFind.password)
+    
     if(!passwordIsValid){
+        console.log('ops')
         throw new AppError('user email or password invalid', 400)
     } 
 

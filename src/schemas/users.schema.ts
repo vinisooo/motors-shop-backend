@@ -9,7 +9,7 @@ export const userSchema = z.object({
   cpf: z.string().min(11).max(11),
   phone: z.string(),
   birthdate: z.string(),
-  profileImg: z.string().max(127).optional(),
+  profileImg: z.string().nullish().or(z.string().max(127)),
   isAdvertiser: z.boolean().optional(),
   address: z.object({
     id: z.string(),
@@ -20,7 +20,7 @@ export const userSchema = z.object({
     number: z.string(),
     complement: z.string().max(128).optional()
   }),
-  description: z.string().optional(),
+  description: z.string().optional().nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
 })
@@ -38,7 +38,7 @@ export const userUpdateReqSchema = userReqSchema.omit({
   address: true,
 })
 
-export const userResSchema = userSchema.omit({
-  password: true,
+export const userResSchema = userReqSchema.omit({
+  password: true
 })
 
