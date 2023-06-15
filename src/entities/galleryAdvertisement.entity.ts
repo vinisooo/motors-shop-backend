@@ -1,7 +1,7 @@
 import { Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Advertisement } from "./advertisement.entity";
 
-@Entity("gallery_advertisement")
+@Entity("galleryAdvertisement")
 class GalleryAdvertisement {
     @PrimaryGeneratedColumn("uuid")
     id: string

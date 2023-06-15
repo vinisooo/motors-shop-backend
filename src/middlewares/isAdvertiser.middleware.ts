@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../errors";
 
-export const isAdvertiserMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const isAdvertiserMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const isAdvertiser = req.loggedUser.is_advertiser;
 
     if(!isAdvertiser) {
@@ -10,3 +10,5 @@ export const isAdvertiserMiddleware = (req: Request, res: Response, next: NextFu
 
     return next();
 }
+
+export { isAdvertiserMiddleware }

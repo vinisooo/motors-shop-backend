@@ -1,10 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { AppDataSource } from "../data-source";
-import { Advertisement } from "../entities/advertisement.entity";
 import { AppError } from "../errors";
 
 //This middleware must be used after checking if advertisement exists and validating Token
-export const isAdvertisementOwnerMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const isAdvertisementOwnerMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const advertisement = req.foundById;
     const loggedUser = req.loggedUser;
 
@@ -14,3 +12,5 @@ export const isAdvertisementOwnerMiddleware = (req: Request, res: Response, next
 
     return next();
 }
+
+export { isAdvertisementOwnerMiddleware }

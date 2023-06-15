@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import { AppError } from '../errors';
 
-export const validateTokenMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const validateTokenMiddleware = (req: Request, res: Response, next: NextFunction) => {
     let token: string | undefined = req.headers.authorization;
     if(!token){
         throw new AppError("Bearer token is missing", 401);
@@ -21,3 +21,5 @@ export const validateTokenMiddleware = (req: Request, res: Response, next: NextF
     })
     return next();
 }
+
+export { validateTokenMiddleware }

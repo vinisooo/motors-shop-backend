@@ -1,7 +1,8 @@
-import {Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm"
+import {Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, BeforeInsert, BeforeUpdate} from "typeorm"
 import { Address } from "./address.entity"
 import { Comment } from "./comment.entity"
 import { Advertisement } from "./advertisement.entity"
+import { hashSync } from "bcryptjs"
 
 @Entity("users")
 class User {
@@ -50,6 +51,13 @@ class User {
 
     @OneToMany(() => Advertisement, advertisements => advertisements.user)
     advertisements: Advertisement[]
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    encryptInsert()
+    {
+        this.password = hashSync(this.password, 10)
+    }
 }
 
 export {User}

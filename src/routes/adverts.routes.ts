@@ -10,7 +10,7 @@ import { validateDataMiddleware } from "../middlewares/validateData.middleware";
 import { advertisementReqSchema, advertisementUpdateReqSchema } from "../schemas/advertisements.schema";
 
 
-const advertsRoutes = Router()
+const advertsRoutes = Router();
 
 advertsRoutes.post("",
                   validateDataMiddleware(advertisementReqSchema),
@@ -26,7 +26,5 @@ advertsRoutes.patch("",
 advertsRoutes.delete("",
                   deleteAdvertisementController
                   )
-
-
 
 export {advertsRoutes}

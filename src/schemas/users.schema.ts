@@ -9,18 +9,18 @@ export const userSchema = z.object({
   cpf: z.string().min(11).max(11),
   phone: z.string(),
   birthdate: z.string(),
-  profileImg: z.string().max(127),
-  isAdvertiser: z.boolean(),
+  profileImg: z.string().max(127).optional(),
+  isAdvertiser: z.boolean().optional(),
   address: z.object({
     id: z.string(),
     zipCode: z.string().max(8),
     state: z.string().max(2),
     city: z.string().max(25),
     street: z.string().max(40),
-    number: z.number(),
-    complement: z.string().max(128)
+    number: z.string(),
+    complement: z.string().max(128).optional()
   }),
-  description: z.string().nullable(),
+  description: z.string().optional(),
   createdAt: z.date(),
   updatedAt: z.date(),
 })
