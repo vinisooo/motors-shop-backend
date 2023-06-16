@@ -15,7 +15,7 @@ const validateTokenMiddleware = (req: Request, res: Response, next: NextFunction
             throw new AppError(err.message, 401);
         }
         req.loggedUser = {
-            is_advertiser: decoded.is_advertiser,
+            isAdvertiser: decoded.isAdvertiser,
             id: decoded.sub
         }
     })
