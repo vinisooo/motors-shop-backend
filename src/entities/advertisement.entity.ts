@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, CreateDateColumn,UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
 import { Comment } from "./comment.entity";
 import { GalleryAdvertisement } from "./galleryAdvertisement.entity";
@@ -46,6 +46,13 @@ class Advertisement {
 
     @OneToMany(() => GalleryAdvertisement, galleryAdvertisement => galleryAdvertisement.advertisement)
     galleryAdvertisement: GalleryAdvertisement[]
+
+    @CreateDateColumn({type:'datetime'})
+    createdAt: Date | string
+
+    @UpdateDateColumn({type:'datetime',nullable:true})
+    updatedAt: Date | string | null
+
 }
 
 export {Advertisement}

@@ -6,7 +6,7 @@ export const userSchema = z.object({
   name: z.string().max(60),
   email: z.string().email("Deve ser um email válido").max(60),
   password: z.string().max(150),
-  cpf: z.string().min(11).max(11),
+  cpf:z.string().min(11).max(11),
   phone: z.string(),
   birthdate: z.string(),
   profileImg: z.string().nullish().or(z.string().max(127)),
@@ -30,7 +30,7 @@ export const userReqSchema = userSchema.omit({
   createdAt: true,
   updatedAt: true,
 }).extend({
-  address: addressReqSchema
+  address: addressReqSchema.optional()
 })
 
 export const userUpdateReqSchema = userReqSchema.omit({
@@ -38,7 +38,8 @@ export const userUpdateReqSchema = userReqSchema.omit({
   address: true,
 })
 
-export const userResSchema = userReqSchema.omit({
-  password: true
+export const userResSchema = userSchema.omit({
+  password: true,
+  cpf:true,
 })
 
