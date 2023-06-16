@@ -14,19 +14,19 @@ import { validateTokenMiddleware } from "../middlewares/validateToken.middleware
 const advertsRoutes = Router();
 
 advertsRoutes.post("",
-                  validateDataMiddleware(advertisementReqSchema),
                   validateTokenMiddleware,
+                  validateDataMiddleware(advertisementReqSchema),
                   createAdvertisementController
-                  )
+                )
 advertsRoutes.get("", 
                   listAdvertsController
-                  )
+                )
 advertsRoutes.patch("",
                   validateDataMiddleware(advertisementUpdateReqSchema),
                   updateAdvertisementController
-                  )
+                )
 advertsRoutes.delete("",
                   deleteAdvertisementController
-                  )
+                )
 
 export {advertsRoutes}

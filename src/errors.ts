@@ -22,12 +22,15 @@ const handleError = (err: Error, req: Request, res: Response, _:NextFunction) =>
     }
 
     if(err instanceof ZodError){
+        if(process.env.NODE_ENV=='dev'){
+            console.log(err) 
+        }
         return res.status(400).json({
             details: err.flatten().fieldErrors
         })
     }
 
-    else if(process.env.NODE_ENV!='prod'){
+    else if(process.env.NODE_ENV=='dev'){
         console.log(err)
     }
 

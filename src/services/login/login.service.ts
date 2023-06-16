@@ -11,7 +11,6 @@ const secretKey=process.env.SECRET_KEY!
 
 const loginService=async(data:tUserLogin):Promise<string>=>{
 
-
     const userRepository:Repository<User>= AppDataSource.getRepository(User)
     const userFind=await userRepository.findOneBy({email:data.email})
 
@@ -22,7 +21,6 @@ const loginService=async(data:tUserLogin):Promise<string>=>{
     const passwordIsValid= await compare(data.password,userFind.password)
     
     if(!passwordIsValid){
-        console.log('ops')
         throw new AppError('user email or password invalid', 400)
     } 
 

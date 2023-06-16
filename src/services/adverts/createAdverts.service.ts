@@ -8,7 +8,7 @@ import { advertisementReqSchema, advertisementSchema } from "../../schemas/adver
 import { userResSchema } from "../../schemas/users.schema";
 
 
-const createAdvertisementService = async (data: TAdvertisementReq,userId:string): Promise<any> => {
+const createAdvertisementService = async (data: TAdvertisementReq,userId:string): Promise<TAdvertisementRes> => {
     
     const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
     const usersRepository: Repository<User> = AppDataSource.getRepository(User)
