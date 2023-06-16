@@ -4,9 +4,9 @@ import { createAdvertisementService } from "../../services/adverts/createAdverts
 
 const createAdvertisementController = async (req: Request, res: Response) => {
 
-    // const userId = req.loggedUser.id
+    const userId = req.loggedUser.id
     const data = req.body
-    const newAdvertisement = await createAdvertisementService(data)
+    const newAdvertisement = await createAdvertisementService(data, userId)
 
     return res.status(201).json(newAdvertisement)
 
