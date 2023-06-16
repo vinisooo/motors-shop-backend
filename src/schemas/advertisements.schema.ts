@@ -38,6 +38,14 @@ export const advertisementReqSchema = advertisementSchema.omit({
 
 export const advertisementUpdateReqSchema = advertisementReqSchema.partial()
 
+export const advertisementResSchema = advertisementSchema.omit({
+  price: true,
+  quilometers: true
+}).extend({
+  price: z.string(),
+  quilometers: z.string()
+})
+
 export const advertisementListResSchema = z.array(advertisementSchema.omit({
   user:true
 }))

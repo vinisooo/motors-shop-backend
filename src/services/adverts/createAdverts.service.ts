@@ -4,8 +4,7 @@ import { Advertisement } from "../../entities/advertisement.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors";
 import { TAdvertisementReq, TAdvertisementRes} from "../../interfaces/advertisements.interfaces";
-import { advertisementReqSchema, advertisementSchema } from "../../schemas/advertisements.schema";
-import { userResSchema } from "../../schemas/users.schema";
+import { advertisementResSchema } from "../../schemas/advertisements.schema";
 
 
 const createAdvertisementService = async (data: TAdvertisementReq,userId:string): Promise<TAdvertisementRes> => {
@@ -28,7 +27,7 @@ const createAdvertisementService = async (data: TAdvertisementReq,userId:string)
 
 
     const newAdvertise=await advertisementRepository.save(advertisement)
-    return advertisementSchema.parse(newAdvertise)
+    return advertisementResSchema.parse(newAdvertise)
 }
 
 export { createAdvertisementService }
