@@ -15,7 +15,7 @@ export const advertisementSchema = z.object({
   coverImage: z.string().max(150),
   description: z.string(),
   isAvailable: z.boolean(),
-  user: userResSchema,
+  user: userResSchema.omit({address:true}),
   createdAt: z.date(),
   updatedAt: z.date().nullable(),
   comments: z.array(commentSchema.omit({
@@ -38,4 +38,6 @@ export const advertisementReqSchema = advertisementSchema.omit({
 
 export const advertisementUpdateReqSchema = advertisementReqSchema.partial()
 
-export const advertisementListResSchema = z.array(advertisementSchema)
+export const advertisementListResSchema = z.array(advertisementSchema.omit({
+  user:true
+}))

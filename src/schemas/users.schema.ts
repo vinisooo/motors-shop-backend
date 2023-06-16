@@ -38,7 +38,7 @@ export const userUpdateReqSchema = userReqSchema.omit({
   address: true,
 })
 
-export const userResSchema = userReqSchema.omit({
+export const userResSchema = userSchema.omit({
   password: true,
   cpf:true,
 })

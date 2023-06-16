@@ -36,11 +36,11 @@ class User {
     @Column({type: 'text' , nullable: true})
     description?: string | undefined | null
 
-    @CreateDateColumn({type: "date"})
-    createdAt: Date
+    @CreateDateColumn({type: "datetime"})
+    createdAt: Date | string
 
-    @UpdateDateColumn({type: "date"})
-    updatedAt: Date
+    @UpdateDateColumn({type: "datetime"})
+    updatedAt: Date | string
 
     @OneToOne(() => Address)
     @JoinColumn()

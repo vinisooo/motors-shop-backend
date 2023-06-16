@@ -8,13 +8,13 @@ import { advertisementReqSchema, advertisementSchema } from "../../schemas/adver
 import { userResSchema } from "../../schemas/users.schema";
 
 
-const createAdvertisementService = async (data: TAdvertisementReq,userId:string): Promise<TAdvertisementRes> => {
+const createAdvertisementService = async (data: TAdvertisementReq,userId:string): Promise<any> => {
     
     const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
     const usersRepository: Repository<User> = AppDataSource.getRepository(User)
 
     const user: User | null = await usersRepository.findOneBy({
-        id: userId
+            id: userId
     })
 
     if (!user) {
@@ -23,8 +23,9 @@ const createAdvertisementService = async (data: TAdvertisementReq,userId:string)
 
     const advertisement: Advertisement = advertisementRepository.create({
         ...data,
-        user
+        user,
     })
+
 
     const newAdvertise=await advertisementRepository.save(advertisement)
     return advertisementSchema.parse(newAdvertise)
