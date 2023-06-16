@@ -7,24 +7,26 @@ import { TUser } from "../../interfaces/users.interfaces";
 import { advertisementListResSchema } from "../../schemas/advertisements.schema";
 
 
-const listUserAdvertsService = async (userId: string): Promise<Advertisement[]> => {
 
+const listAdvertsService = async (): Promise<TAdvertisementListRes> => {
+
+    
     const advertsRepository: TAdvertisement = AppDataSource.getRepository(Advertisement)
+    const usersRepository: TUser = AppDataSource.getRepository(User)
 
-    const adverts: Advertisement[]  = await advertsRepository.find({
-        where:{
-            user:{
-                id: userId
-            }
-        },
-        relations: {
-            user: true,
-        }
-    })
+    // const user: User | null = await usersRepository.findOneBy({
+    //     id: userId
+    // })
 
-    // const validatedAdvertisements = advertisementListResSchema.parse(adverts)
+    // if (!user) {
+    //     throw new AppError("User not found", 404)
+    // }
 
-    return adverts
+    const adverts: Advertisement[]  = await advertsRepository.find()
+
+    const validatedAdvertisements = advertisementListResSchema.parse(adverts)
+
+    return validatedAdvertisements
 }
 
-export { listUserAdvertsService }
+export { listAdvertsService}

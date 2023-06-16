@@ -41,3 +41,4 @@ export const userUpdateReqSchema = userReqSchema.omit({
 export const userResSchema = userReqSchema.omit({
   password: true
 })
+
