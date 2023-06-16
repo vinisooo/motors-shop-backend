@@ -47,10 +47,10 @@ class Advertisement {
     @OneToMany(() => GalleryAdvertisement, galleryAdvertisement => galleryAdvertisement.advertisement)
     galleryAdvertisement: GalleryAdvertisement[]
 
-    @CreateDateColumn({type:'date'})
+    @CreateDateColumn({type:'timestamp'})
     createdAt: Date | string
 
-    @UpdateDateColumn({type:'date',nullable:true})
+    @UpdateDateColumn({type:'timestamp',nullable:true})
     updatedAt: Date | string | null
 
 }

@@ -36,10 +36,10 @@ class User {
     @Column({type: 'text' , nullable: true})
     description?: string | undefined | null
 
-    @CreateDateColumn({type: "date"})
+    @CreateDateColumn({type: "timestamp"})
     createdAt: Date | string
 
-    @UpdateDateColumn({type: "date"})
+    @UpdateDateColumn({type: "timestamp"})
     updatedAt: Date | string
 
     @OneToOne(() => Address)
