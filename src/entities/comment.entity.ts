@@ -10,7 +10,7 @@ class Comment {
     @Column({length: 255})
     comment: string
 
-    @CreateDateColumn({type: "date"})
+    @CreateDateColumn({type: "timestamp"})
     createdAt: Date
 
     @ManyToOne(() => User)
