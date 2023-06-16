@@ -17,11 +17,11 @@ export const advertisementSchema = z.object({
   isAvailable: z.boolean(),
   user: userResSchema,
   createdAt: z.date(),
-  updatedAt: z.date(),
+  updatedAt: z.date().nullable(),
   comments: z.array(commentSchema.omit({
     advertisement: true,
-  })),
-  galleryAdvertisement: galleryAdvertisementListSchema,
+  })).optional(),
+  galleryAdvertisement: galleryAdvertisementListSchema.optional(),
 })
 
 export const advertisementReqSchema = advertisementSchema.omit({
@@ -31,6 +31,7 @@ export const advertisementReqSchema = advertisementSchema.omit({
   isAvailable: true,
   user: true,
   comments: true,
+  galleryAdvertisement:true
 }).extend({
   galleryAnnounce: z.array(galleryAdvertisementReqSchema).optional()
 })
