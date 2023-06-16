@@ -5,14 +5,10 @@ import { userLoginSchema } from "../schemas/login.schemas";
 import { userReqSchema } from "../schemas/users.schema";
 import { registerUserController } from "../controllers/user/registerUser.controller";
 import { ensureUserIsNotRegisteredMiddleware } from "../middlewares/ensureUserIsNotRegistered.middleware";
-import { ensureUserExistsMiddleware } from "../middlewares/ensureUserExists.middleware";
-import { listUserAdvertsController } from "../controllers/adverts/listUserAdverts.controller";
 
 const userRouter=Router();
 
 userRouter.post("/login",validateDataMiddleware(userLoginSchema),loginController);
 userRouter.post("/register", validateDataMiddleware(userReqSchema), ensureUserIsNotRegisteredMiddleware, registerUserController);
-
-userRouter.get("/:id/adverts", ensureUserExistsMiddleware, listUserAdvertsController);
 
 export {userRouter}
