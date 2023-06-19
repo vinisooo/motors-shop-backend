@@ -3,7 +3,7 @@ import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { AppError } from "../../errors";
 import { TAdvertisementRes, TAdvertisementUpdateReq } from "../../interfaces/advertisements.interfaces";
-import { advertisementSchema } from "../../schemas/advertisements.schema";
+import { advertisementResSchema, advertisementSchema } from "../../schemas/advertisements.schema";
 
 
 
@@ -41,7 +41,7 @@ const updateAdvertisementService = async (data: TAdvertisementUpdateReq, adverti
         }
     })
 
-    const validatedAdvertisement = advertisementSchema.parse(updatedAdvertisement)
+    const validatedAdvertisement = advertisementResSchema.parse(updatedAdvertisement)
 
 
     return validatedAdvertisement
