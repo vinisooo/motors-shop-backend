@@ -36,7 +36,7 @@ export const userReqSchema = userSchema.omit({
 export const userUpdateReqSchema = userReqSchema.omit({
   password: true,
   address: true,
-})
+}).partial()
 
 export const userResSchema = userSchema.omit({
   password: true,

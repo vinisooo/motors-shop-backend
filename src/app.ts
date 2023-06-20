@@ -9,9 +9,7 @@ import { advertsRoutes } from "./routes/adverts.routes";
 import { userRouter } from "./routes/user.routes";
 
 export const app: Application = express();
-
 app.use(cors());
-
 app.use(express.json());
 app.use("/adverts", advertsRoutes);
 app.use("/users",userRouter);
