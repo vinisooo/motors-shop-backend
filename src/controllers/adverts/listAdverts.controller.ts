@@ -5,7 +5,7 @@ import { listAdvertsService } from "../../services/adverts/listAdverts.service";
 
 const listAdvertsController = async (req: Request, res: Response) => {
 
-    const adverts  = await listAdvertsService()
+    const adverts  = await listAdvertsService(req.query)
     return res.json(adverts)
 }
 

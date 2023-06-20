@@ -46,6 +46,26 @@ export const advertisementResSchema = advertisementSchema.omit({
   quilometers: z.string()
 })
 
-export const advertisementListResSchema = z.array(advertisementSchema.omit({
+
+export const advertisementUserListResSchema = z.array(advertisementResSchema.omit({
   user:true
 }))
+
+
+export const advertisementListResSchema=z.array(advertisementResSchema)
+
+export const advertisementListUserPaginatedResSchema=z.object({
+  page:z.string(),
+  next:z.string(),
+  prev:z.string(),
+  count:z.number(),
+  adverts: advertisementUserListResSchema
+})
+
+export const advertisementListPaginatedResSchema=z.object({
+  page:z.string(),
+  next:z.string(),
+  prev:z.string(),
+  count:z.number(),
+  adverts: advertisementListResSchema
+})

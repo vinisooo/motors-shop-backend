@@ -23,7 +23,7 @@ class Advertisement {
     @Column({length: 20})
     color: string
 
-    @Column({ type: 'decimal', precision: 6, scale: 2, default: 0 })
+    @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
     quilometers: number
 
     @Column({ type: 'decimal', precision: 9, scale: 2, default: 0 })
