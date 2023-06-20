@@ -2,11 +2,11 @@ import { number } from "zod";
 import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { TAdvertisement, TAdvertisementListRes, TListAdvertisementUserPaginated } from "../../interfaces/advertisements.interfaces";
-import { advertisementListResSchema } from "../../schemas/advertisements.schema";
+import { advertisementListResSchema, advertisementUserListResSchema } from "../../schemas/advertisements.schema";
 import { baseUrl } from "../../server";
 
 
-const listUserAdvertsService = async (userId:string,queries:any): Promise<TListAdvertisementUserPaginated> => {
+const listUserAdvertsService = async (userId:string,queries:any): Promise<any> => {
 
     const {perPage,order}=queries
     const {brand,color,fuel,year}=queries
@@ -46,7 +46,7 @@ const listUserAdvertsService = async (userId:string,queries:any): Promise<TListA
         page:`${url}?page=${page}`,
         next:`${url}?page=${page+1}`,
         count:adverts.length,
-        adverts: advertisementListResSchema.parse(adverts)
+        adverts: advertisementUserListResSchema.parse(adverts)
     }
 
     return paginated

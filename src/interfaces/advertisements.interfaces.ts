@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { z } from "zod";
 import { Advertisement } from "../entities/advertisement.entity";
-import { advertisementListResSchema, advertisementListUserPaginatedResSchema, advertisementReqSchema, advertisementResSchema, advertisementUpdateReqSchema } from "../schemas/advertisements.schema";
+import { advertisementListPaginatedResSchema, advertisementListResSchema, advertisementListUserPaginatedResSchema, advertisementReqSchema, advertisementResSchema, advertisementUpdateReqSchema } from "../schemas/advertisements.schema";
 
 export type TAdvertisement = Repository<Advertisement>
 export type TAdvertisementReq = z.infer<typeof advertisementReqSchema>
@@ -12,3 +12,4 @@ export type TAdvertisementListRes = z.infer<typeof advertisementListResSchema>
 //paginated
 
 export type TListAdvertisementUserPaginated=z.infer<typeof advertisementListUserPaginatedResSchema>
+export type TListAdvertisementPaginated=z.infer<typeof advertisementListPaginatedResSchema>
