@@ -41,6 +41,7 @@ const listAdvertsService = async (queries:any): Promise<TListAdvertisementPagina
             color,
             fuel, 
             year,
+            model,
             quilometers: Between (minKm || 0 ,maxKm || 999999999),
             price: Between(minPrice || 0,maxPrice || 999999999)
         },
