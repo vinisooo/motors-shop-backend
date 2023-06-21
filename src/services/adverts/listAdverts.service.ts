@@ -5,10 +5,10 @@ import {advertisementListResSchema} from "../../schemas/advertisements.schema";
 import { baseUrl } from "../../server";
 import { Between } from "typeorm";
 
-const listAdvertsService = async (queries:any): Promise<TListAdvertisementPaginated> => {
+const listAdvertsService = async (queries:any): Promise<TListAdvertisementPaginated | Advertisement[]> => {
 
     const {order}=queries
-    const {color,brand,fuel,year,minKm,maxKm,minPrice,maxPrice}=queries
+    const {color,brand,fuel,year,minKm,maxKm,minPrice,maxPrice, model}=queries
     const page=queries.page && Number(queries.page)>0 && Number(queries.page) || 1
     const perPage=queries.perPage && Number(queries.perPage)>0 && Number(queries.perPage) || 5
 
@@ -20,6 +20,7 @@ const listAdvertsService = async (queries:any): Promise<TListAdvertisementPagina
             color,
             fuel, 
             year,
+            model,
             quilometers: Between (minKm || 0 ,maxKm || 99999999),
             price: Between(minPrice || 0,maxPrice || 999999999)
         },
@@ -27,6 +28,10 @@ const listAdvertsService = async (queries:any): Promise<TListAdvertisementPagina
             user:true
         },
     })
+
+    if(perPage>=999){
+        return AllAdverts
+    }
 
     const maxPage=Math.ceil(AllAdverts.length/perPage)
 
