@@ -10,6 +10,7 @@ import { listUserAdvertsController } from "../controllers/adverts/listUserAdvert
 import { validateTokenMiddleware } from "../middlewares/validateToken.middleware";
 import { getLoggedUserController } from "../controllers/user/getLoggedUser.controller";
 import updateUserController from "../controllers/user/updateUser.controller";
+import { resetPasswordUser, sendResetEmailPassword } from "../controllers/user/resetEmailPassword.controller";
 
 const userRouter=Router();
 
@@ -20,5 +21,10 @@ userRouter.get("/:id/adverts", ensureUserExistsMiddleware, listUserAdvertsContro
 userRouter.get("/loggedUser", validateTokenMiddleware, getLoggedUserController);
 
 userRouter.patch("/update", validateTokenMiddleware, validateDataMiddleware(userUpdateReqSchema), updateUserController)
+
+userRouter.post("/resetPassword", sendResetEmailPassword) 
+userRouter.patch("/resetPassword/:token", resetPasswordUser)
+   
+
 
 export {userRouter}
