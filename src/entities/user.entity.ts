@@ -36,6 +36,9 @@ class User {
     @Column({type: 'text' , nullable: true})
     description?: string | undefined | null
 
+    @Column({type: 'text' , nullable: true})
+    reset_password?: string | undefined | null
+
     @CreateDateColumn({type: "timestamp"})
     createdAt: Date | string
 
