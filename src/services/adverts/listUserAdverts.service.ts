@@ -1,18 +1,34 @@
-import { number } from "zod";
 import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
-import { TAdvertisement, TAdvertisementListRes, TListAdvertisementUserPaginated } from "../../interfaces/advertisements.interfaces";
-import { advertisementListResSchema, advertisementUserListResSchema } from "../../schemas/advertisements.schema";
+import { TAdvertisement, TListAdvertisementUserPaginated } from "../../interfaces/advertisements.interfaces";
+import { advertisementListResSchema} from "../../schemas/advertisements.schema";
 import { baseUrl } from "../../server";
 
+const listUserAdvertsService = async (userId:string,queries:any): Promise<TListAdvertisementUserPaginated> => {
 
-const listUserAdvertsService = async (userId:string,queries:any): Promise<any> => {
-
-    const {perPage,order}=queries
+    const {order}=queries
     const {brand,color,fuel,year}=queries
     const page=queries.page && Number(queries.page)>0 && Number(queries.page) || 1
+    const perPage=queries.perPage && Number(queries.perPage)>0 && Number(queries.perPage) || 5
 
     const advertsRepository: TAdvertisement = AppDataSource.getRepository(Advertisement)
+
+    const allAdverts: Advertisement[]  = await advertsRepository.find({
+        where:{
+            user:{
+                id: userId
+            },
+            brand,
+            color,
+            fuel,
+            year
+        },
+        relations: {
+            user: true,
+        }
+    })
+
+    const maxPage=Math.ceil(allAdverts.length/perPage)
 
     const adverts: Advertisement[]  = await advertsRepository.find({
         where:{
@@ -42,11 +58,12 @@ const listUserAdvertsService = async (userId:string,queries:any): Promise<any> =
     }
 
     const paginated:TListAdvertisementUserPaginated={
-        prev: page > 1 ? `${url}?page=${page-1}` : 'null',
+        prev: page > 1 ? `${url}?page=${page-1}` : null,
         page:`${url}?page=${page}`,
-        next:`${url}?page=${page+1}`,
+        next: page >= maxPage ? null : `${url}?page=${page+1}`,
+        maxPage,
         count:adverts.length,
-        adverts: advertisementUserListResSchema.parse(adverts)
+        adverts: advertisementListResSchema.parse(adverts)
     }
 
     return paginated

@@ -54,18 +54,18 @@ export const advertisementUserListResSchema = z.array(advertisementResSchema.omi
 
 export const advertisementListResSchema=z.array(advertisementResSchema)
 
-export const advertisementListUserPaginatedResSchema=z.object({
-  page:z.string(),
-  next:z.string(),
-  prev:z.string(),
-  count:z.number(),
-  adverts: advertisementUserListResSchema
-})
 
 export const advertisementListPaginatedResSchema=z.object({
   page:z.string(),
-  next:z.string(),
-  prev:z.string(),
+  next:z.string().nullable(),
+  prev:z.string().nullable(),
   count:z.number(),
+  maxPage:z.number(),
   adverts: advertisementListResSchema
+})
+
+export const advertisementListUserPaginatedResSchema=advertisementListPaginatedResSchema.omit({  
+  adverts:true
+}).extend({
+  adverts: advertisementUserListResSchema
 })
