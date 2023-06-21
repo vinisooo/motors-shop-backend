@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-import { listUserAdvertsService } from "../../services/adverts/listUserAdverts.service";
-
-
+import { listUserAdvertsService} from "../../services/adverts/listUserAdverts.service";
 
 const listUserAdvertsController = async (req: Request, res: Response) => {
 

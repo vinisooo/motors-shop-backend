@@ -1,17 +1,34 @@
-import { skip } from "node:test";
 import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { TAdvertisement, TListAdvertisementPaginated} from "../../interfaces/advertisements.interfaces";
-import {advertisementListResSchema, advertisementResSchema} from "../../schemas/advertisements.schema";
+import {advertisementListResSchema} from "../../schemas/advertisements.schema";
 import { baseUrl } from "../../server";
+import { Between } from "typeorm";
 
-const listAdvertsService = async (queries:any): Promise<any> => {
+const listAdvertsService = async (queries:any): Promise<TListAdvertisementPaginated> => {
 
-    const {perPage,order}=queries
+    const {order}=queries
+    const {color,brand,fuel,year,minKm,maxKm,minPrice,maxPrice}=queries
     const page=queries.page && Number(queries.page)>0 && Number(queries.page) || 1
-    const {color,brand,fuel,year}=queries
+    const perPage=queries.perPage && Number(queries.perPage)>0 && Number(queries.perPage) || 5
 
     const advertsRepository: TAdvertisement = AppDataSource.getRepository(Advertisement)
+
+    const AllAdverts: Advertisement[] = await advertsRepository.find({
+        where:{
+            brand,  
+            color,
+            fuel, 
+            year,
+            quilometers: Between (minKm || 0 ,maxKm || 99999999),
+            price: Between(minPrice || 0,maxPrice || 999999999)
+        },
+        relations:{
+            user:true
+        },
+    })
+
+    const maxPage=Math.ceil(AllAdverts.length/perPage)
 
     const adverts: Advertisement[] = await advertsRepository.find({
         where:{
@@ -19,6 +36,8 @@ const listAdvertsService = async (queries:any): Promise<any> => {
             color,
             fuel, 
             year,
+            quilometers: Between (minKm || 0 ,maxKm || 999999999),
+            price: Between(minPrice || 0,maxPrice || 999999999)
         },
         relations:{
             user:true
@@ -39,9 +58,10 @@ const listAdvertsService = async (queries:any): Promise<any> => {
     }
 
     const paginated:TListAdvertisementPaginated={
-        prev: page > 1 ? `${url}?page=${page-1}` : 'null',
+        prev: page > 1 ? `${url}?page=${page-1}` : null,
         page:`${url}?page=${page}`,
-        next:`${url}?page=${page+1}`,
+        next: page >= maxPage ? null : `${url}?page=${page+1}`,
+        maxPage,
         count:adverts.length,
         adverts: advertisementListResSchema.parse(adverts)
     }
