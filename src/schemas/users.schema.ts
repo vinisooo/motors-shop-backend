@@ -36,6 +36,7 @@ export const userReqSchema = userSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+  reset_password: true
 }).extend({
   address: addressReqSchema.optional()
 })
