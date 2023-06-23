@@ -6,8 +6,8 @@ import { resetPassword } from "../../services/user/resetPassword";
 const sendResetEmailPassword = async(req: Request, res: Response) => {
     const { email } = req.body
 
-        await sendEmailResetPassword(email)
-        return res.json({message: "token send"})
+    await sendEmailResetPassword(email)
+    return res.json({message: "token send"})
       
 }
 
