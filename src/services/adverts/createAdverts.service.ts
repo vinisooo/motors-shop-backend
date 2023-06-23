@@ -20,6 +20,10 @@ const createAdvertisementService = async (data: TAdvertisementReq,userId:string)
          throw new AppError("User not found", 404)
     }
 
+    if(!user.isAdvertiser){
+        throw new AppError("user is not advertisement",400)
+    }
+
     const advertisement: Advertisement = advertisementRepository.create({
         ...data,
         user,

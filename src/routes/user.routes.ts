@@ -16,6 +16,6 @@ userRouter.post("/login",validateDataMiddleware(userLoginSchema),loginController
 userRouter.post("/register", validateDataMiddleware(userReqSchema), ensureUserIsNotRegisteredMiddleware, registerUserController);
 
 userRouter.get("/:id/adverts", ensureUserExistsMiddleware, listUserAdvertsController);
-userRouter.get("/loggedUser", getLoggedUserController);
+userRouter.get("/loggedUser",validateTokenMiddleware ,getLoggedUserController);
 
 export {userRouter}
