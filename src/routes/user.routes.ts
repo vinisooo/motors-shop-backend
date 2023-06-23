@@ -9,8 +9,9 @@ import { ensureUserExistsMiddleware } from "../middlewares/ensureUserExists.midd
 import { listUserAdvertsController } from "../controllers/adverts/listUserAdverts.controller";
 import { validateTokenMiddleware } from "../middlewares/validateToken.middleware";
 import { getLoggedUserController } from "../controllers/user/getLoggedUser.controller";
-import updateUserController from "../controllers/user/updateUser.controller";
 import { resetPasswordUser, sendResetEmailPassword } from "../controllers/user/resetEmailPassword.controller";
+import updateUserController from "../controllers/user/updateUser.controller";
+import deleteUserController from "../controllers/user/deleteUser.controller";
 
 const userRouter=Router();
 
@@ -18,9 +19,15 @@ userRouter.post("/login",validateDataMiddleware(userLoginSchema),loginController
 userRouter.post("/register", validateDataMiddleware(userReqSchema), ensureUserIsNotRegisteredMiddleware, registerUserController);
 
 userRouter.get("/:id/adverts", ensureUserExistsMiddleware, listUserAdvertsController);
+<<<<<<< HEAD
 userRouter.get("/loggedUser", validateTokenMiddleware, getLoggedUserController);
+=======
+userRouter.get("/loggedUser",validateTokenMiddleware ,getLoggedUserController);
+>>>>>>> d0372a985d7932ba1b2fdbfa9ea07394bd961c8c
 
 userRouter.patch("/update", validateTokenMiddleware, validateDataMiddleware(userUpdateReqSchema), updateUserController)
+
+userRouter.delete("/delete", validateTokenMiddleware, deleteUserController)
 
 userRouter.post("/resetPassword", sendResetEmailPassword) 
 userRouter.patch("/resetPassword/:token", resetPasswordUser)
