@@ -23,12 +23,20 @@ export const userSchema = z.object({
   description: z.string().optional().nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  reset_password: z.string().optional(),
+})
+
+export const userSchemaResetPassword = z.object({
+  to: z.string(),
+  subject: z.string(),
+  text: z.string(),
 })
 
 export const userReqSchema = userSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+  reset_password: true
 }).extend({
   address: addressReqSchema.optional()
 })
@@ -36,10 +44,11 @@ export const userReqSchema = userSchema.omit({
 export const userUpdateReqSchema = userReqSchema.omit({
   password: true,
   address: true,
-})
+}).partial()
 
 export const userResSchema = userSchema.omit({
   password: true,
   cpf:true,
+  reset_password: true
 })
 
