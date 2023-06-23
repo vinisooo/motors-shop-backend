@@ -67,5 +67,8 @@ export const advertisementListPaginatedResSchema=z.object({
 export const advertisementListUserPaginatedResSchema=advertisementListPaginatedResSchema.omit({  
   adverts:true
 }).extend({
-  adverts: advertisementUserListResSchema
+  data:z.object({
+    user: userResSchema.omit({address:true}),
+    adverts: advertisementUserListResSchema
+  })
 })
