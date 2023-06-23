@@ -19,7 +19,11 @@ userRouter.post("/login",validateDataMiddleware(userLoginSchema),loginController
 userRouter.post("/register", validateDataMiddleware(userReqSchema), ensureUserIsNotRegisteredMiddleware, registerUserController);
 
 userRouter.get("/:id/adverts", ensureUserExistsMiddleware, listUserAdvertsController);
+<<<<<<< HEAD
+userRouter.get("/loggedUser", validateTokenMiddleware, getLoggedUserController);
+=======
 userRouter.get("/loggedUser",validateTokenMiddleware ,getLoggedUserController);
+>>>>>>> d0372a985d7932ba1b2fdbfa9ea07394bd961c8c
 
 userRouter.patch("/update", validateTokenMiddleware, validateDataMiddleware(userUpdateReqSchema), updateUserController)
 
