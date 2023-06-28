@@ -46,7 +46,8 @@ const listAdvertsService = async (queries:any): Promise<TListAdvertisementPagina
             price: Between(minPrice || 0,maxPrice || 999999999)
         },
         relations:{
-            user:true
+            user:true,
+            galleryAdvertisement:true
         },
         
         skip: perPage && page?  perPage * (page-1) : 5 * (page-1),

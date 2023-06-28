@@ -8,7 +8,10 @@ import { advertisementResSchema } from "../../schemas/advertisements.schema";
 import { GalleryAdvertisement } from "../../entities/galleryAdvertisement.entity";
 
 
-const createAdvertisementService = async (data: TAdvertisementReq,userId:string): Promise<TAdvertisementRes> => {
+const createAdvertisementService = async (data: TAdvertisementReq,userId:string): /* Promise<TAdvertisementRes> */ Promise<any>=> {
+
+    const galery= data.galleryAdvertisement
+    delete data.galleryAdvertisement
     
     const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
     const usersRepository: Repository<User> = AppDataSource.getRepository(User)
@@ -26,24 +29,30 @@ const createAdvertisementService = async (data: TAdvertisementReq,userId:string)
         throw new AppError("user is not advertisement",400)
     }
 
+    
     const advertisement = advertisementRepository.create({
-        ...data,
         user,
+        ...data
     })
-
+    
     const newAdvertise=await advertisementRepository.save(advertisement)
-
-    if(data.galleryAdvertisement){
-        data.galleryAdvertisement.forEach(async(img) => {
-            const image = galleryRepository.create({
-                imageUrl: img,
-                advertisement: advertisement
+    
+    if(galery && galery.length>0){
+        console.log('temos')
+        galery.map((img)=>{
+            const {imageUrl}=img
+            const create= galleryRepository.save({
+                imageUrl,
+                advertisement: newAdvertise
             })
-            await galleryRepository.save(image)
+            console.log(create)
         })
     }
-
+    else{
+        console.log('ntnos')
+    }
     return advertisementResSchema.parse(newAdvertise)
+
 }
 
 export { createAdvertisementService }

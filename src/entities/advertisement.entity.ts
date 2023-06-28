@@ -45,7 +45,7 @@ class Advertisement {
     comments: Comment[]
 
     @OneToMany(() => GalleryAdvertisement, galleryAdvertisement => galleryAdvertisement.advertisement)
-    galleryAdvertisement: GalleryAdvertisement[]
+    galleryAdvertisement: GalleryAdvertisement[] | undefined
 
     @CreateDateColumn({type:'timestamp'})
     createdAt: Date | string
