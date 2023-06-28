@@ -33,7 +33,7 @@ export const advertisementReqSchema = advertisementSchema.omit({
   comments: true,
   galleryAdvertisement:true
 }).extend({
-  galleryAnnounce: z.array(galleryAdvertisementReqSchema).optional()
+  galleryAdvertisement: z.array(z.string()).optional()
 })
 
 export const advertisementUpdateReqSchema = advertisementReqSchema.partial()
