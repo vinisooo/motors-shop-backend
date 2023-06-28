@@ -52,3 +52,15 @@ export const userResSchema = userSchema.omit({
   reset_password: true
 })
 
+export const userAdvertisementResSchema = userResSchema.omit({
+  address: true
+})
+
+export const addressUserResSchema = userSchema.omit({
+  password: true,
+  cpf:true,
+  reset_password: true,
+  address: true
+})
+
+
