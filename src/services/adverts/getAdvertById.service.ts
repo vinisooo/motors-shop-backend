@@ -12,7 +12,8 @@ const getAdvertByIdService = async(advertisementId: string) => {
         },
         relations: {
             comments: true,
-            user: true
+            user: true,
+            galleryAdvertisement: true
         }
     }) 
     const serializedUser = userAdvertisementResSchema.parse(advertisement?.user)

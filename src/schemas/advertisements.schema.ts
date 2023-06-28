@@ -34,7 +34,7 @@ export const advertisementReqSchema = advertisementSchema.omit({
   comments: true,
   galleryAdvertisement:true
 }).extend({
-  galleryAnnounce: z.array(galleryAdvertisementReqSchema).optional()
+  galleryAdvertisement: z.array(galleryAdvertisementReqSchema).optional(),
 })
 
 export const advertisementUpdateReqSchema = advertisementReqSchema.partial()
@@ -58,6 +58,7 @@ export const advertisementListResSchema=z.array(advertisementResSchema)
 
 export const advertisementListPaginatedResSchema=paginateSchema.extend({
   adverts: advertisementListResSchema
+  
 })
 
 
@@ -66,6 +67,6 @@ export const advertisementListUserPaginatedResSchema=advertisementListPaginatedR
 }).extend({
   data:z.object({
     user: userResSchema.omit({address:true}),
-    adverts: advertisementUserListResSchema
+    adverts: advertisementListResSchema
   })
 })

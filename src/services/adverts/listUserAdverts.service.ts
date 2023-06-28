@@ -51,6 +51,7 @@ const listUserAdvertsService = async (userId:string,queries:any): Promise<TListA
         },
         relations: {
             user: true,
+            galleryAdvertisement:true
         },
         skip: perPage && page?  perPage * (page-1) : 5 * (page-1),
         take: perPage  || 5,
@@ -74,9 +75,9 @@ const listUserAdvertsService = async (userId:string,queries:any): Promise<TListA
         count:adverts.length,
         data:{
             user: userResSchema.omit({address:true}).parse(user),
-            adverts: advertisementUserListResSchema.parse(adverts)
+            adverts: advertisementListResSchema.parse(adverts)
         }
-    }
+    } 
 
     return paginated
 }
