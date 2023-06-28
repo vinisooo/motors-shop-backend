@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { TAdvertisement, TListAdvertisementUserPaginated } from "../../interfaces/advertisements.interfaces";
-import { advertisementListResSchema} from "../../schemas/advertisements.schema";
+import { advertisementListResSchema, advertisementUserListResSchema} from "../../schemas/advertisements.schema";
 import { baseUrl } from "../../server";
 import { TUser } from "../../interfaces/users.interfaces";
 import { User } from "../../entities/user.entity";
@@ -74,7 +74,7 @@ const listUserAdvertsService = async (userId:string,queries:any): Promise<TListA
         count:adverts.length,
         data:{
             user: userResSchema.omit({address:true}).parse(user),
-            adverts: advertisementListResSchema.parse(adverts)
+            adverts: advertisementUserListResSchema.parse(adverts)
         }
     }
 
