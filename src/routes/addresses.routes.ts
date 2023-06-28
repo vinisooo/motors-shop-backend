@@ -4,7 +4,7 @@ import { ensureAddressExistsMiddleware } from "../middlewares/ensureAddressExist
 import { validateTokenMiddleware } from "../middlewares/validateToken.middleware";
 import { validateDataMiddleware } from "../middlewares/validateData.middleware";
 import { addressUpdateReqSchema } from "../schemas/addresses.schema";
-import { isAddressOwnerMiddleware } from "../middlewares/IsAddressOwner.middleware";
+import { isAddressOwnerMiddleware } from "../middlewares/isAddressOwner.middleware";
 
 const addressRoutes = Router();
 

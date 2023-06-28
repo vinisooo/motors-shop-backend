@@ -9,6 +9,8 @@ import { validateDataMiddleware } from "../middlewares/validateData.middleware";
 // import { validateTokenMiddleware } from "../middlewares/validateToken.middleware";
 import { advertisementReqSchema, advertisementUpdateReqSchema } from "../schemas/advertisements.schema";
 import { validateTokenMiddleware } from "../middlewares/validateToken.middleware";
+import { getAdvertByIdController } from "../controllers/adverts/getAdvertById.controller";
+import { ensureAdvertisementExistsMiddleware } from "../middlewares/ensureAdvertisementExists.middleware";
 
 
 const advertsRoutes = Router();
@@ -20,6 +22,10 @@ advertsRoutes.post("",
                 )
 advertsRoutes.get("", 
                   listAdvertsController
+                )
+advertsRoutes.get("/:id",
+                  ensureAdvertisementExistsMiddleware,
+                  getAdvertByIdController
                 )
 advertsRoutes.patch("",
                   validateDataMiddleware(advertisementUpdateReqSchema),
