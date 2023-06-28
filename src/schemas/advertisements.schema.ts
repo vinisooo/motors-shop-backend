@@ -2,6 +2,7 @@ import { z } from "zod";
 import { commentSchema } from "./comments.schema";
 import { galleryAdvertisementListSchema, galleryAdvertisementReqSchema } from "./galleryAdvertisement.schema";
 import { userResSchema } from "./users.schema";
+import { paginateSchema } from "./paginationSchema";
 
 export const advertisementSchema = z.object({
   id: z.string(),
@@ -47,22 +48,19 @@ export const advertisementResSchema = advertisementSchema.omit({
 })
 
 
-export const advertisementUserListResSchema = advertisementResSchema.omit({
-  user:true
-})
+export const advertisementUserListResSchema = z.array(advertisementResSchema.omit({
+  user: true
+}))
+
 
 export const advertisementListResSchema=z.array(advertisementResSchema)
 
 
-export const advertisementListPaginatedResSchema=z.object({
-  page:z.string(),
-  next:z.string().nullable(),
-  prev:z.string().nullable(),
-  count:z.number(),
-  maxPage:z.number(),
+export const advertisementListPaginatedResSchema=paginateSchema.extend({
   adverts: advertisementListResSchema
   
 })
+
 
 export const advertisementListUserPaginatedResSchema=advertisementListPaginatedResSchema.omit({  
   adverts:true

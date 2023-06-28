@@ -18,8 +18,6 @@ class Comment {
 
     @ManyToOne(() => Advertisement)
     advertisement: Advertisement
-
-
 }
 
 export {Comment}
