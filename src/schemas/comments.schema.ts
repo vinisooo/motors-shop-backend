@@ -32,7 +32,9 @@ const advert=z.object({
 
 export const commentPostSchema = z.object({
   post: advert,
-  postComments: z.array(commentSchema.omit({advertisement:true}))
+  postComments: z.array(commentSchema.omit({advertisement:true}).extend({
+    timeSince: z.string().optional()
+  }))
 })
 
 export const commentReqSchema = z.object({
