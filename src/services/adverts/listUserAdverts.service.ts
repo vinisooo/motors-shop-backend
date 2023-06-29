@@ -51,7 +51,8 @@ const listUserAdvertsService = async (userId:string,queries:any): Promise<TListA
         },
         relations: {
             user: true,
-            galleryAdvertisement:true
+            galleryAdvertisement:true,
+            comments:true
         },
         skip: perPage && page?  perPage * (page-1) : 5 * (page-1),
         take: perPage  || 5,
