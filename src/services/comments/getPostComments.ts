@@ -2,6 +2,7 @@ import { AppDataSource } from "../../data-source"
 import { Advertisement } from "../../entities/advertisement.entity"
 import { Comment } from "../../entities/comment.entity"
 import { commentPostSchema } from "../../schemas/comments.schema"
+import { getTimeSince } from "../../utils/timeAddedComment.utils"
 
 
 const getPostCommentsService=async(postId:string)=>{
@@ -13,7 +14,7 @@ const getPostCommentsService=async(postId:string)=>{
         id:postId
     })
 
-    const postComments= await commentRepository.find({
+    let postComments= await commentRepository.find({
         where:{
             advertisement:{
                 id:postId
@@ -21,6 +22,13 @@ const getPostCommentsService=async(postId:string)=>{
         },
         relations:{
             user:true
+        }
+    })
+
+    postComments = postComments.map((comment) => {
+        return {
+            ...comment,
+            timeSince: getTimeSince(comment.createdAt)
         }
     })
 
