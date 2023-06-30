@@ -1,18 +1,18 @@
 import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
-import { TAdvertisement, TListAdvertisementPaginated} from "../../interfaces/advertisements.interfaces";
-import {advertisementListResSchema} from "../../schemas/advertisements.schema";
+import { TAdvertisementListPaginatedResSchema, TAdvertisementListResSchema, advertisementListResSchema } from "../../schemas/advertisements.schema";
+
 import { baseUrl } from "../../server";
 import { Between } from "typeorm";
 
-const listAdvertsService = async (queries:any): Promise<TListAdvertisementPaginated | Advertisement[]> => {
+const listAdvertsService = async (queries:any): Promise<TAdvertisementListPaginatedResSchema | TAdvertisementListResSchema> => {
 
     const {order}=queries
     const {color,brand,fuel,year,minKm,maxKm,minPrice,maxPrice, model}=queries
     const page=queries.page && Number(queries.page)>0 && Number(queries.page) || 1
     const perPage=queries.perPage && Number(queries.perPage)>0 && Number(queries.perPage) || 5
 
-    const advertsRepository: TAdvertisement = AppDataSource.getRepository(Advertisement)
+    const advertsRepository= AppDataSource.getRepository(Advertisement)
 
     const AllAdverts: Advertisement[] = await advertsRepository.find({
         where:{
@@ -32,7 +32,7 @@ const listAdvertsService = async (queries:any): Promise<TListAdvertisementPagina
     })
 
     if(perPage>=999){
-        return AllAdverts
+        return advertisementListResSchema.parse(AllAdverts)
     }
 
     const maxPage=Math.ceil(AllAdverts.length/perPage)
@@ -67,7 +67,7 @@ const listAdvertsService = async (queries:any): Promise<TListAdvertisementPagina
         }
     }
 
-    const paginated:TListAdvertisementPaginated={
+    const paginated={
         prev: page > 1 ? `${url}?page=${page-1}` : null,
         page:`${url}?page=${page}`,
         next: page >= maxPage ? null : `${url}?page=${page+1}`,

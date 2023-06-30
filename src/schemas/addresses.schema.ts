@@ -7,7 +7,7 @@ export const addressSchema = z.object({
   city: z.string().max(25),
   street: z.string().max(40),
   number: z.string(),
-  complement: z.string().max(128).optional(),
+  complement: z.string().max(128).nullish(),
 })
 
 export const addressReqSchema = addressSchema.omit({

@@ -3,12 +3,14 @@ import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors";
-import { TAdvertisementReq, TAdvertisementRes} from "../../interfaces/advertisements.interfaces";
-import { advertisementResSchema } from "../../schemas/advertisements.schema";
+import { TAdvertisementReqSchema, TAdvertisementSchema, advertisementSchema,} from "../../schemas/advertisements.schema";
 import { GalleryAdvertisement } from "../../entities/galleryAdvertisement.entity";
 
 
-const createAdvertisementService = async (data: TAdvertisementReq,userId:string): /* Promise<TAdvertisementRes> */ Promise<any>=> {
+const createAdvertisementService = async (data: TAdvertisementReqSchema,userId:string): Promise<TAdvertisementSchema>=> {
+
+
+    console.log(data)
 
     const galery= data.galleryAdvertisement
     delete data.galleryAdvertisement
@@ -38,8 +40,7 @@ const createAdvertisementService = async (data: TAdvertisementReq,userId:string)
     const newAdvertise=await advertisementRepository.save(advertisement)
     
     if(galery && galery.length>0){
-        console.log('temos')
-        galery.map((img)=>{
+        galery.map((img: { imageUrl: string })=>{
             const {imageUrl}=img
             const create= galleryRepository.save({
                 imageUrl,
@@ -48,11 +49,8 @@ const createAdvertisementService = async (data: TAdvertisementReq,userId:string)
             console.log(create)
         })
     }
-    else{
-        console.log('ntnos')
-    }
-    return advertisementResSchema.parse(newAdvertise)
 
+    return advertisementSchema.parse(newAdvertise)
 }
 
 export { createAdvertisementService }

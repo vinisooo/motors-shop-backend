@@ -21,7 +21,7 @@ class Address {
     number: string
 
     @Column({length: 128, nullable:true})
-    complement: string
+    complement: string 
 }
 
 export {Address}

@@ -2,12 +2,11 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { AppError } from "../../errors";
-import { TAdvertisementRes, TAdvertisementUpdateReq } from "../../interfaces/advertisements.interfaces";
-import { advertisementResSchema, advertisementSchema } from "../../schemas/advertisements.schema";
+import { TAdvertisementSchema, advertisementSchema } from "../../schemas/advertisements.schema";
 
 
 
-const updateAdvertisementService = async (data: TAdvertisementUpdateReq, advertisementId: string): Promise<TAdvertisementRes> => {
+const updateAdvertisementService = async (data: any, advertisementId: string): Promise<TAdvertisementSchema> => {
     
     const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
     const advertisement: Advertisement | null = await advertisementRepository.findOneBy({ id: advertisementId })
@@ -41,7 +40,7 @@ const updateAdvertisementService = async (data: TAdvertisementUpdateReq, adverti
         }
     })
 
-    const validatedAdvertisement = advertisementResSchema.parse(updatedAdvertisement)
+    const validatedAdvertisement = advertisementSchema.parse(updatedAdvertisement)
 
 
     return validatedAdvertisement
