@@ -38,6 +38,9 @@ class Advertisement {
     @Column({default: true})
     isAvailable: boolean
 
+    @Column({default: false})
+    fipeDeal: boolean
+
     @ManyToOne(()=> User)
     user: User
 
