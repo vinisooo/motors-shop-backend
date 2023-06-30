@@ -2,7 +2,7 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { Address } from "../../entities/address.entity";
 import { Repository } from "typeorm";
-import { userReqSchema, userResSchema} from "../../schemas/users.schema";
+import { userResSchema} from "../../schemas/users.schema";
 
 const registerUserService = async(data: User) => {
     const userRepository: Repository<User> = AppDataSource.getRepository(User);

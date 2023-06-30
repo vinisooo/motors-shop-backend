@@ -5,8 +5,8 @@ export const galleryAdvertisementSchema = z.object({
   imageUrl: z.string(),
 })
 
-export const galleryAdvertisementReqSchema = galleryAdvertisementSchema.omit({
+export const galleryAdvertisementReqSchema = z.array(galleryAdvertisementSchema.omit({
   id: true
-})
+}))
 
 export const galleryAdvertisementListSchema = galleryAdvertisementSchema.array()
