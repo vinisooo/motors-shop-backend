@@ -19,6 +19,7 @@ export const advertisementSchema = z.object({
   user: userResSchema.omit({address:true}),
   createdAt: z.date(),
   updatedAt: z.date().nullable(),
+  fipeDeal: z.boolean().optional().default(false),
   comments: z.array(commentSchema.omit({
     advertisement: true,
   })).optional(),
