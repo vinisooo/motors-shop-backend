@@ -1,6 +1,8 @@
 import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { TAdvertisementListPaginatedResSchema, TAdvertisementListResSchema, advertisementListResSchema } from "../../schemas/advertisements.schema";
+import { commentSchema } from "../../schemas/comments.schema";
+import { userResSchema } from "../../schemas/users.schema";
 
 import { baseUrl } from "../../server";
 import { Between } from "typeorm";
@@ -59,6 +61,7 @@ const listAdvertsService = async (queries:any): Promise<TAdvertisementListPagina
             createdAt: ['asc','ASC','desc','DESC'].includes(order) ?  order : 'asc'
         }
     })
+
 
     var url=`${baseUrl}/adverts`
     for (let [key, value] of Object.entries(queries)) {

@@ -42,7 +42,8 @@ export const advertisementReqSchema= advertisementSchema.omit({
   galleryAdvertisement:galleryAdvertisementReqSchema.optional(),
 })
 
-export const advertisementListResSchema=z.array(advertisementSchema)
+
+export const advertisementListResSchema=z.array(advertisementSchema.deepPartial())
 
 
 export const advertisementListPaginatedResSchema=paginateSchema.extend({
@@ -51,7 +52,7 @@ export const advertisementListPaginatedResSchema=paginateSchema.extend({
 
 export const advertisementUserListResSchema = z.array(advertisementSchema.omit({
   user: true
-}))
+}).deepPartial())
 
 export const advertisementListUserPaginatedResSchema=advertisementListPaginatedResSchema.omit({  
   adverts:true
