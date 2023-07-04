@@ -1,5 +1,5 @@
 import { AppError } from "../../errors"
-import { randomUUID } from "node:crypto"
+import { randomUUID } from "crypto"
 import { Repository } from "typeorm";
 import { User } from "../../entities/user.entity";
 import { AppDataSource } from "../../data-source";
