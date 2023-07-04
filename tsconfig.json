@@ -10,7 +10,8 @@
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "outDir": "./dist"
   },
   "include": ["src", "app.ts"],
   "exclude": ["node_modules"]
