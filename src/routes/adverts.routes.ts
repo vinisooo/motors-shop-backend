@@ -9,13 +9,16 @@ import { validateTokenMiddleware } from "../middlewares/validateToken.middleware
 import { getAdvertByIdController } from "../controllers/adverts/getAdvertById.controller";
 import { ensureAdvertisementExistsMiddleware } from "../middlewares/ensureAdvertisementExists.middleware";
 import upload from "../middlewares/multer";
+import { uploadAdvertImagesMiddleware } from "../middlewares/uploadImagesMiddleware";
 
 const advertsRoutes = Router();
 
 advertsRoutes.post("",
+                  upload.fields([{name: "coverImage", maxCount:1},
+                  {name: "galleryAdvertisement", maxCount:7}]),
+                  uploadAdvertImagesMiddleware,
                   validateTokenMiddleware,
                   validateDataMiddleware(advertisementReqSchema),
-                  upload.array("photos", 12),
                   createAdvertisementController
                 )
 advertsRoutes.get("", 
@@ -26,6 +29,9 @@ advertsRoutes.get("/:id",
                   getAdvertByIdController
                 )
 advertsRoutes.patch("/:id",
+                  upload.fields([{name: "coverImage", maxCount:1},
+                  {name: "galleryAdvertisement", maxCount:7}]),
+                  uploadAdvertImagesMiddleware,
                   validateDataMiddleware(advertisementUpdateReqSchema),
                   updateAdvertisementController
                 )
