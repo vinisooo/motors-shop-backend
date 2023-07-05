@@ -3,12 +3,15 @@ import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { AppError } from "../../errors";
 import { TAdvertisementSchema, advertisementSchema } from "../../schemas/advertisements.schema";
+import { GalleryAdvertisement } from "../../entities/galleryAdvertisement.entity";
+import { TGalleryAdvertisementListRes } from "../../interfaces/galleryAnnounces.interfaces";
 
 
 
 const updateAdvertisementService = async (data: any, advertisementId: string): Promise<TAdvertisementSchema> => {
     
     const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
+    const galleryAdvertisementRepository: Repository<GalleryAdvertisement> = AppDataSource.getRepository(GalleryAdvertisement)
     const advertisement: Advertisement | null = await advertisementRepository.findOneBy({ id: advertisementId })
 
     if (!advertisement) {
@@ -42,6 +45,31 @@ const updateAdvertisementService = async (data: any, advertisementId: string): P
 
     const validatedAdvertisement = advertisementSchema.parse(updatedAdvertisement)
 
+    if (data.galleryAdvertisement && data.galleryAdvertisement.length > 0) {
+        const galleryImages: {"imageUrl":string, "id"?:string | null}[] = [];
+    
+        await galleryAdvertisementRepository.delete({
+          advertisement: {
+            id: advertisement.id,
+          },
+        });
+    
+        for (const img of data.galleryAdvertisement) {
+          const galleryImage = galleryAdvertisementRepository.create({
+            ...img,
+            advertisement: advertisement,
+          });
+    
+          await galleryAdvertisementRepository.save(galleryImage);
+          const imageObject = {
+            imageUrl: img.imageUrl,
+            id: null
+          }
+          galleryImages.push(imageObject)
+        }
+    
+        return { ...validatedAdvertisement, galleryAdvertisement: galleryImages as GalleryAdvertisement[] };
+      }
 
     return validatedAdvertisement
 
