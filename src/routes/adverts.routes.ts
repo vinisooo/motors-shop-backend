@@ -8,13 +8,14 @@ import { advertisementReqSchema, advertisementUpdateReqSchema } from "../schemas
 import { validateTokenMiddleware } from "../middlewares/validateToken.middleware";
 import { getAdvertByIdController } from "../controllers/adverts/getAdvertById.controller";
 import { ensureAdvertisementExistsMiddleware } from "../middlewares/ensureAdvertisementExists.middleware";
-
+import upload from "../middlewares/multer";
 
 const advertsRoutes = Router();
 
 advertsRoutes.post("",
                   validateTokenMiddleware,
                   validateDataMiddleware(advertisementReqSchema),
+                  upload.array("photos", 12),
                   createAdvertisementController
                 )
 advertsRoutes.get("", 
