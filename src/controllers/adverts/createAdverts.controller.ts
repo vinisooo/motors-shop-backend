@@ -3,6 +3,7 @@ import { createAdvertisementService } from "../../services/adverts/createAdverts
 
 
 const createAdvertisementController = async (req: Request, res: Response) => {
+    console.log(req.files, req.files?.length)
 
     const userId = req.loggedUser.id
     const data = req.body
