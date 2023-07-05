@@ -1,0 +1,698 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "motorShop",
+    "description": "api de compra e venda de carros",
+    "version": "1.0.0"
+  },
+  "servers":[
+    {
+      "url":"http://localhost:3001",
+      "description":"Development server"
+    },
+    {
+      "url":"https://motorsshop-w0l3.onrender.com",
+      "description":"Production server"
+    }
+  ],
+  "paths": {
+    "/adverts":{
+      "post":{
+        "tags":["adverts"],
+        "description":"create post",
+        "security":[{"bearerAuth":[]}],
+        "parameters":[
+          { 
+            "name":"body",
+            "in": "body",
+            "schema":{
+              "$ref":"#/components/schemas/advert"
+            }
+          }
+        ],
+        "responses":{
+          "201":{
+            "description":"Ok",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/advert"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/adverts/{id}": {
+      "get": {
+        "tags":["adverts"],
+        "description": "get advert by id",
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format":"uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/advert"
+                }
+              }
+            }
+          },
+          "404":{
+            "description":"not found"
+          }
+        }
+      },
+      "patch": {
+        "tags":["adverts"],
+        "description": "update advert",
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name":"body",
+            "in":"body",
+            "schema":{
+              "$ref":"#/components/schemas/advert"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/advert"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "delete advert",
+        "tags":["adverts"],
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format":"uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "description": "user login",
+        "tags":["users"],
+        "parameters":[
+        {
+          "name": "body",
+            "in": "body",
+            "schema":{
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type":"string",
+                  "format":"email"
+                },
+                "password": {
+                  "type": "string",
+                  "format":"password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                  "schema":{
+                    "type":"object",
+                    "properties":{
+                    "token":{
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204":{
+            "description": "user email or password invalid"
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "tags":["users"],
+        "description": "register user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref":"#/components/schemas/user"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/user"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/adverts": {
+      "get": {
+        "tags":["adverts","users"],
+        "security":[{"bearerAuth":[]}],
+        "description": "get user adverts",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format":"uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"array",
+                  "items":{
+                    "$ref":"#/components/schemas/advert"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/loggedUser": {
+      "get": {
+        "description": "get user logged",
+        "tags":["users"],
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/user"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "patch": {
+        "description": "update user",
+        "tags":["users"],
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "format":"uuid"
+          },
+          {
+            "name":"body",
+            "in":"body",
+            "schema":{
+              "$ref":"#/components/schemas/user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "update user",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/user"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/delete": {
+      "delete": {
+        "description": "delete user",
+        "tags":["users"],
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/users/resetPassword": {
+      "post": {
+        "description": "reset password",
+        "tags":["users"],
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format":"email"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/resetPassword/{token}": {
+      "patch": {
+        "description": "reset user password",
+        "security":[{"bearerAuth":[]}],
+        "tags":["users"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "format":"password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/comments/{postId}": {
+      "post": {
+        "description": "create comment to post",
+        "tags":["comments"],
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name":"body",
+            "in":"body",
+            "schema":{
+              "$ref":"#/components/schemas/comment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/comment"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "get comments to post",
+        "tags":["comments"],
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/comment"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comments/": {
+      "get": {
+        "description": "get all comments",
+        "tags":["comments"],
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"array",
+                  "items":{
+                    "$ref":"#/components/schemas/comment"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/address/{id}": {
+      "patch": {
+        "description": "get address",
+        "security":[{"bearerAuth":[]}],
+        "tags":["address"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name":"body",
+            "in":"body",
+            "schema":{
+              "$ref":"#/components/schemas/address"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/address"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components":{
+    "schemas":{
+      "comment":{
+        "type":"object",
+        "properties":{
+          "id":{
+            "type":"string",
+            "format":"uuid",
+            "readOnly":true
+          },
+          "comment":{
+            "type":"string"
+          }
+        }
+      },
+      "user":{
+        "type":"object",
+        "properties":{
+          "id":{
+            "type":"string",
+            "format":"uuid",
+            "readOnly":true
+          },
+          "name":{
+            "type":"string"
+          },
+          "email":{
+            "type":"string",
+            "format":"email"
+          },
+          "password":{
+            "type":"string",
+            "minLength":8
+          },
+          "cpf":{
+            "type":"string",
+            "length":11
+          },
+          "phone":{
+            "type":"string",
+            "length":9
+          },
+          "profileImg":{
+            "type":"string",
+            "nullable":true
+          },
+          "description":{
+            "type":"string",
+            "nullable":true
+          },
+          "isAdvertiser":{
+            "type":"boolean",
+            "default":false
+          },
+          "birthdate":{
+            "type":"string",
+            "format": "date"
+          },
+          "createdAt":{
+            "type":"string",
+            "format":"date-time",
+            "readOnly":true
+          },
+          "updatedAt":{
+            "type":"string",
+            "format":"date-time",
+            "nullable":true,
+            "readOnly":true
+          },
+          "address":{
+            "$ref":"#/components/schemas/address"
+          }
+        }
+      },
+      "address": {
+        "type":"object",
+        "properties":{
+          "id":{
+            "type":"string",
+            "format":"uuid",
+            "readOnly":true
+          },
+          "zipCode":{
+            "type": "string",
+            "length":8
+          },
+          "state":{
+            "type":"string",
+            "length":2
+          },
+          "city":{
+            "type":"string"
+          },
+          "street": {
+            "type":"string"
+          },
+          "number":{
+            "type":"string"
+          },
+          "complement":{
+            "type":"string"
+          }
+        }
+      },
+      "advert":{
+        "type":"object",
+        "properties":{
+          "id":{
+            "type":"string",
+            "readOnly":true,
+            "format":"uuid"
+          },
+          "brand":{
+            "type":"string"
+          },
+          "model":{
+            "type":"string"
+          },
+          "year": {
+            "type":"number"
+          },
+          "fuel":{
+            "type":"string"
+          },
+          "color":{
+            "type":"string"
+          },
+          "quilometers": {
+            "type":"string"
+          },
+          "price":{
+            "type": "number",
+            "format":"float"
+          },
+          "coverImage":{
+            "type":"string",
+            "nullable": true
+          },
+          "description":{ 
+            "type":"string",
+            "nullable":true
+          },
+          "isAvailable":{
+            "type":"boolean",
+            "default":true
+          },
+          "createdAt":{
+            "type":"string",
+            "format":"date-time",
+            "readOnly":true
+          },
+          "updatedAt":{
+            "type":"string",
+            "nullable":true,
+            "format":"date-time",
+            "readOnly":true
+          },
+          "fipeDeal":{
+            "type":"boolean",
+            "readOnly":true
+          },
+          "comments":{
+            "$ref":"#/components/schemas/comment"
+          },
+          "galleryAdvertisement": {
+            "type":"array",
+            "nullable":true,
+            "writeOnly": true,
+            "items":{
+              "type":"object",
+              "properties":{
+                "imageUrl":{
+                  "type":"string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes":{
+      "bearerAuth":{
+        "type":"http",
+        "scheme":"bearer",
+        "bearerFormat":"JWT"
+      }
+    }
+  }
+}

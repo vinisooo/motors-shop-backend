@@ -13,6 +13,7 @@ import { addressRoutes } from "./routes/addresses.routes";
 export const app: Application = express();
 app.use(cors());
 app.use(express.json());
+
 app.use("/adverts", advertsRoutes);
 app.use("/users",userRouter);
 app.use("/comments",commentsRouter)
