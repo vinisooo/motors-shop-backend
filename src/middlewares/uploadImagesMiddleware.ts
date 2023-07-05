@@ -38,7 +38,9 @@ const uploadAdvertImagesMiddleware = async(req: Request, res: Response, next: Ne
             })
         }
     }
+    console.log(req.body)
 
+    req.body.fipeDeal = req.body.fipeDeal === "false" ?  false : true
     req.body.price = Number(req.body.price) ? Number(req.body.price) : req.body.price;
     req.body.year = Number(req.body.year) ? Number(req.body.year) : req.body.year;
     req.body.quilometers = Number(req.body.quilometers) ? Number(req.body.quilometers) : req.body.quilometers;
