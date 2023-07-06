@@ -15,7 +15,7 @@ const advertsRoutes = Router();
 
 advertsRoutes.post("",
                   upload.fields([{name: "coverImage", maxCount:1},
-                  {name: "galleryAdvertisement", maxCount:7}]),
+                  {name: "galleryAdvertisement[]", maxCount:7}]),
                   uploadAdvertImagesMiddleware,
                   validateTokenMiddleware,
                   validateDataMiddleware(advertisementReqSchema),

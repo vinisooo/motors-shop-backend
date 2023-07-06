@@ -17,8 +17,9 @@ const uploadAdvertImagesMiddleware = async(req: Request, res: Response, next: Ne
                 req.body.coverImage = result.url;
             });
         }
-        if(files.galleryAdvertisement){
-            const galleryAdvertisement = files.galleryAdvertisement;
+        if(files["galleryAdvertisement[]"]){
+            console.log(files)
+            const galleryAdvertisement = files["galleryAdvertisement[]"];
             let imageUrls: string[] = []
             for(const img of galleryAdvertisement) {
                 await cloudinary.uploader.upload(img.path, async(err: unknown, result: {url: string}) => {
