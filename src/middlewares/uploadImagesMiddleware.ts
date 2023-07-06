@@ -25,7 +25,6 @@ const uploadAdvertImagesMiddleware = async(req: Request, res: Response, next: Ne
                     imageUrls.push(img)
                 }
                 await cloudinary.uploader.upload(img.path, async(err: unknown, result: {url: string}) => {
-                    console.log(img)
                     if(err){
                         console.log(err)
                         throw new AppError("Internal Server Error", 500)
@@ -41,8 +40,6 @@ const uploadAdvertImagesMiddleware = async(req: Request, res: Response, next: Ne
             })
         }
     }
-
-    console.log(req.body)
 
     req.body.fipeDeal = req.body.fipeDeal === "false" ?  false : true
     req.body.price = Number(req.body.price) ? Number(req.body.price) : req.body.price;
