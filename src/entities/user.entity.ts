@@ -52,7 +52,7 @@ class User {
     @OneToMany(() => Comment, comments => comments.user)
     comments: Comment[]
 
-    @OneToMany(() => Advertisement, advertisements => advertisements.user)
+    @OneToMany(() => Advertisement, advertisements => advertisements.user, { onDelete: "CASCADE" })
     advertisements: Advertisement[]
 
     @BeforeInsert()
