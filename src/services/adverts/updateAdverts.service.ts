@@ -2,14 +2,19 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { AppError } from "../../errors";
-import { TAdvertisementSchema, advertisementSchema } from "../../schemas/advertisements.schema";
+import { advertisementSchema } from "../../schemas/advertisements.schema";
+import { TAdvertisementSchema } from "../../interfaces/advertisements.interfaces";
+import { GalleryAdvertisement } from "../../entities/galleryAdvertisement.entity";
 
 
 
 const updateAdvertisementService = async (data: any, advertisementId: string): Promise<TAdvertisementSchema> => {
     
     const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
-    const advertisement: Advertisement | null = await advertisementRepository.findOneBy({ id: advertisementId })
+    const advertisement: Advertisement | null = await advertisementRepository.findOneBy({
+        id: advertisementId 
+    })
+    const galleryAdvertisementRepository: Repository<GalleryAdvertisement> = AppDataSource.getRepository(GalleryAdvertisement)
 
     if (!advertisement) {
         throw new AppError("Advertisement not found", 404)
@@ -33,7 +38,8 @@ const updateAdvertisementService = async (data: any, advertisementId: string): P
     const updatedAdvertisement = await advertisementRepository.findOne({
         where: {
             id: advertisementId
-        }, relations: {
+        }, 
+        relations: {
             user: true,
             comments: true,
             galleryAdvertisement: true
@@ -42,9 +48,34 @@ const updateAdvertisementService = async (data: any, advertisementId: string): P
 
     const validatedAdvertisement = advertisementSchema.parse(updatedAdvertisement)
 
+    if (data.galleryAdvertisement && data.galleryAdvertisement.length > 0) {
+        const galleryImages: {"imageUrl":string, "id"?:string | null}[] = [];
+    
+        await galleryAdvertisementRepository.delete({
+          advertisement: {
+            id: advertisement.id,
+          },
+        });
+    
+        for (const img of data.galleryAdvertisement) {
+          const galleryImage = galleryAdvertisementRepository.create({
+            ...img,
+            advertisement: advertisement,
+          });
+    
+          await galleryAdvertisementRepository.save(galleryImage);
+          const imageObject = {
+            imageUrl: img.imageUrl,
+            id: null
+          }
+          galleryImages.push(imageObject)
+        }
+    
+        return { ...validatedAdvertisement, galleryAdvertisement: galleryImages as GalleryAdvertisement[] };
+      }
 
     return validatedAdvertisement
 
 }
 
-export { updateAdvertisementService}
+export { updateAdvertisementService }

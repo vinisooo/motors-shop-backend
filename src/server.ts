@@ -6,7 +6,7 @@ const swaggerFile = require('./swagger.json')
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-export const baseUrl='http://localhost:3001' 
+export const baseUrl = 'http://localhost:3001' 
 
 AppDataSource.initialize()
     .then(() => {
