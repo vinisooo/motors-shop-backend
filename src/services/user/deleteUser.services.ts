@@ -4,20 +4,20 @@ import { AppError } from "../../errors"
 import { TUser } from "../../interfaces/users.interfaces"
 
 const deleteUserService = async (userId: string): Promise<void> => {
-  const userRepository: TUser = AppDataSource.getRepository(User)
-  const userToDelete = await userRepository.findOne({
-    where: {
-      id: userId
+    const userRepository: TUser = AppDataSource.getRepository(User)
+    const userToDelete = await userRepository.findOne({
+        where: {
+            id: userId
+        }
+    })
+
+    if (!userToDelete) {
+        throw new AppError("User not found", 404)
     }
-  })
 
-  if (!userToDelete) {
-    throw new AppError("User not found", 404)
-  }
-
-  await userRepository.delete({
-    id: userId
-  })
+    await userRepository.delete({
+        id: userId
+    })
 }
 
 export default deleteUserService

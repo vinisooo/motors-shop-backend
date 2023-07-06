@@ -8,9 +8,19 @@ import { getPostCommentsController } from "../controllers/comments/getPostCommen
 
 const commentsRouter=Router()
 
-commentsRouter.post('/:postId',validateTokenMiddleware,validateDataMiddleware(commentReqSchema),createCommentController)
-commentsRouter.get("/",validateTokenMiddleware,getAllCommentsController)
-commentsRouter.get("/:postId",validateTokenMiddleware,getPostCommentsController)
+commentsRouter.post('/:postId',
+                    validateTokenMiddleware,
+                    validateDataMiddleware(commentReqSchema),
+                    createCommentController
+                  )
+commentsRouter.get("/",
+                    validateTokenMiddleware,
+                    getAllCommentsController
+                  )
+commentsRouter.get("/:postId",
+                    validateTokenMiddleware,
+                    getPostCommentsController
+                  )
 
 
-export {commentsRouter}
+export { commentsRouter }

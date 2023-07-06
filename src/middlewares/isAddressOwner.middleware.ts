@@ -17,7 +17,7 @@ const isAddressOwnerMiddleware = async(req: Request, res: Response, next: NextFu
         }
     })
 
-    if(!isAddressOwner){
+    if (!isAddressOwner) {
         throw new AppError("You do not have permission to access this address", 401)
     }
 
