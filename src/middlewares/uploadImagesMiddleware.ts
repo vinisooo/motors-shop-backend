@@ -18,10 +18,12 @@ const uploadAdvertImagesMiddleware = async(req: Request, res: Response, next: Ne
             });
         }
         if(files["galleryAdvertisement[]"]){
-            console.log(files)
             const galleryAdvertisement = files["galleryAdvertisement[]"];
             let imageUrls: string[] = []
             for(const img of galleryAdvertisement) {
+                if(typeof img === "string"){
+                    imageUrls.push(img)
+                }
                 await cloudinary.uploader.upload(img.path, async(err: unknown, result: {url: string}) => {
                     console.log(img)
                     if(err){
@@ -39,6 +41,7 @@ const uploadAdvertImagesMiddleware = async(req: Request, res: Response, next: Ne
             })
         }
     }
+
     console.log(req.body)
 
     req.body.fipeDeal = req.body.fipeDeal === "false" ?  false : true

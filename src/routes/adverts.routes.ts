@@ -30,7 +30,7 @@ advertsRoutes.get("/:id",
                 )
 advertsRoutes.patch("/:id",
                   upload.fields([{name: "coverImage", maxCount:1},
-                  {name: "galleryAdvertisement", maxCount:7}]),
+                  {name: "galleryAdvertisement[]", maxCount:7}]),
                   uploadAdvertImagesMiddleware,
                   validateDataMiddleware(advertisementUpdateReqSchema),
                   updateAdvertisementController
