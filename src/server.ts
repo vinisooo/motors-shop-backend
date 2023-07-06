@@ -2,7 +2,7 @@ import { app } from "./app";
 import { AppDataSource } from "./data-source";
 import 'dotenv/config'
 
-export const baseUrl='http://localhost:3001' 
+export const baseUrl = 'http://localhost:3001' 
 
 AppDataSource.initialize()
     .then(() => {

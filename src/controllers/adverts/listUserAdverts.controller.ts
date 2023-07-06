@@ -4,7 +4,7 @@ import { listUserAdvertsService} from "../../services/adverts/listUserAdverts.se
 const listUserAdvertsController = async (req: Request, res: Response) => {
 
     const userId = req.params.id
-    const adverts  = await listUserAdvertsService(userId,req.query)
+    const adverts = await listUserAdvertsService(userId, req.query)
 
     return res.json(adverts)
 }

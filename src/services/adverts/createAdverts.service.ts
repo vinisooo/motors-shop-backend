@@ -3,16 +3,14 @@ import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors";
-import { TAdvertisementReqSchema, TAdvertisementSchema, advertisementSchema,} from "../../schemas/advertisements.schema";
+import { advertisementSchema } from "../../schemas/advertisements.schema";
 import { GalleryAdvertisement } from "../../entities/galleryAdvertisement.entity";
+import { TAdvertisementReqSchema, TAdvertisementSchema } from "../../interfaces/advertisements.interfaces";
 
 
-const createAdvertisementService = async (data: TAdvertisementReqSchema,userId:string): Promise<TAdvertisementSchema>=> {
+const createAdvertisementService = async (data: TAdvertisementReqSchema, userId:string): Promise<TAdvertisementSchema> => {
 
-
-    console.log(data)
-
-    const galery= data.galleryAdvertisement
+    const gallery = data.galleryAdvertisement
     delete data.galleryAdvertisement
     
     const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
@@ -20,15 +18,15 @@ const createAdvertisementService = async (data: TAdvertisementReqSchema,userId:s
     const galleryRepository: Repository<GalleryAdvertisement> = AppDataSource.getRepository(GalleryAdvertisement)
 
     const user: User | null = await usersRepository.findOneBy({
-            id: userId
+        id: userId
     })
 
     if (!user) {
-         throw new AppError("User not found", 404)
+        throw new AppError("User not found", 404)
     }
 
-    if(!user.isAdvertiser){
-        throw new AppError("user is not advertisement",400)
+    if(!user.isAdvertiser) {
+        throw new AppError("user is not advertisement", 400)
     }
 
     
@@ -37,16 +35,15 @@ const createAdvertisementService = async (data: TAdvertisementReqSchema,userId:s
         ...data
     })
     
-    const newAdvertise=await advertisementRepository.save(advertisement)
+    const newAdvertise = await advertisementRepository.save(advertisement)
     
-    if(galery && galery.length>0){
-        galery.map((img: { imageUrl: string })=>{
-            const {imageUrl}=img
+    if (gallery && gallery.length > 0) {
+        gallery.map((img: { imageUrl: string }) => {
+            const {imageUrl} = img
             const create= galleryRepository.save({
                 imageUrl,
                 advertisement: newAdvertise
             })
-            console.log(create)
         })
     }
 

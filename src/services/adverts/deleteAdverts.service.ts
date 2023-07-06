@@ -7,19 +7,19 @@ import { AppError } from "../../errors"
 const deleteAdvertisementService = async (advertisementId: string): Promise<void> => {
 
     const advertisementRepository = AppDataSource.getRepository(Advertisement)
-    const galleryRepository= AppDataSource.getRepository(GalleryAdvertisement)
+    const galleryRepository = AppDataSource.getRepository(GalleryAdvertisement)
 
 
-    const gallery=await galleryRepository.find({
-        where:{
-            advertisement:{
-                id:advertisementId
+    const gallery = await galleryRepository.find({
+        where: {
+            advertisement: {
+                id: advertisementId
             }
         }
     })
 
     gallery &&
-    gallery.map((img)=>{
+    gallery.map((img) => {
         galleryRepository.remove(img)
     })
 

@@ -20,4 +20,4 @@ const getAdvertByIdService = async(advertisementId: string) => {
     return {...advertisement, user:serializedUser}
 }
 
-export {getAdvertByIdService}
+export { getAdvertByIdService }

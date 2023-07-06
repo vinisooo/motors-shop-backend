@@ -16,7 +16,7 @@ const sendEmailResetPassword = async (email: string) => {
         where: {email}
     })
 
-    if(!user){
+    if(!user) {
         throw new AppError("user not found", 404)
     }
 
@@ -25,7 +25,9 @@ const sendEmailResetPassword = async (email: string) => {
 
     await userRepository.update(
         user.id,
-       { reset_password: resetToken}
+        { 
+            reset_password: resetToken 
+        }
     )
 
 
@@ -36,4 +38,4 @@ const sendEmailResetPassword = async (email: string) => {
 }
 
 
-export {sendEmailResetPassword}
+export { sendEmailResetPassword }

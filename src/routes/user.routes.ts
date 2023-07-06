@@ -15,20 +15,44 @@ import deleteUserController from "../controllers/user/deleteUser.controller";
 
 const userRouter=Router();
 
-userRouter.post("/login",validateDataMiddleware(userLoginSchema),loginController);
-userRouter.post("/register", validateDataMiddleware(userReqSchema), ensureUserIsNotRegisteredMiddleware, registerUserController);
+userRouter.post("/login",
+                validateDataMiddleware(userLoginSchema),
+                loginController
+              );
+userRouter.post("/register", 
+                validateDataMiddleware(userReqSchema), 
+                ensureUserIsNotRegisteredMiddleware, 
+                registerUserController
+              );
 
-userRouter.get("/:id/adverts", ensureUserExistsMiddleware, listUserAdvertsController);
+userRouter.get("/:id/adverts", 
+                ensureUserExistsMiddleware, 
+                listUserAdvertsController
+              );
 
-userRouter.get("/loggedUser",validateTokenMiddleware ,getLoggedUserController);
+userRouter.get("/loggedUser",
+                validateTokenMiddleware,
+                getLoggedUserController
+              );
 
-userRouter.patch("/update", validateTokenMiddleware, validateDataMiddleware(userUpdateReqSchema), updateUserController)
+userRouter.patch("/update", 
+                validateTokenMiddleware, 
+                validateDataMiddleware(userUpdateReqSchema), 
+                updateUserController
+              )
 
-userRouter.delete("/delete", validateTokenMiddleware, deleteUserController)
+userRouter.delete("/delete", 
+                validateTokenMiddleware, 
+                deleteUserController
+              )
 
-userRouter.post("/resetPassword", sendResetEmailPassword) 
-userRouter.patch("/resetPassword/:token", resetPasswordUser)
+userRouter.post("/resetPassword", 
+                sendResetEmailPassword
+              ) 
+userRouter.patch("/resetPassword/:token", 
+                resetPasswordUser
+              )
    
 
 
-export {userRouter}
+export { userRouter }
