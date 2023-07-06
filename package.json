@@ -29,6 +29,8 @@
     "pg-format": "^1.0.4",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.1.6",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3",
     "typeorm": "^0.3.11",
     "zod": "^3.21.4"
   },

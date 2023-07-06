@@ -5,23 +5,23 @@ import { commentPostSchema } from "../../schemas/comments.schema"
 import { getTimeSince } from "../../utils/timeAddedComment.utils"
 
 
-const getPostCommentsService=async(postId:string)=>{
+const getPostCommentsService = async (postId: string) => {
 
-    const commentRepository= AppDataSource.getRepository(Comment)
-    const postRepository= AppDataSource.getRepository(Advertisement)
+    const commentRepository = AppDataSource.getRepository(Comment)
+    const postRepository = AppDataSource.getRepository(Advertisement)
 
-    const post= await postRepository.findOneBy({
-        id:postId
+    const post = await postRepository.findOneBy({
+        id: postId
     })
 
-    let postComments= await commentRepository.find({
-        where:{
-            advertisement:{
-                id:postId
+    let postComments = await commentRepository.find({
+        where: {
+            advertisement: {
+                id: postId
             }
         },
-        relations:{
-            user:true
+        relations: {
+            user: true
         }
     })
 
@@ -32,7 +32,7 @@ const getPostCommentsService=async(postId:string)=>{
         }
     })
 
-    const comments={
+    const comments = {
         post,
         postComments
     }
@@ -40,4 +40,4 @@ const getPostCommentsService=async(postId:string)=>{
     return commentPostSchema.parse(comments)
 }
 
-export {getPostCommentsService}
+export { getPostCommentsService }

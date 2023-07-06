@@ -8,6 +8,12 @@ import { isAddressOwnerMiddleware } from "../middlewares/isAddressOwner.middlewa
 
 const addressRoutes = Router();
 
-addressRoutes.patch("/:id", validateTokenMiddleware,ensureAddressExistsMiddleware, validateDataMiddleware(addressUpdateReqSchema), isAddressOwnerMiddleware, updateAddressController)
+addressRoutes.patch("/:id", 
+                    validateTokenMiddleware,
+                    ensureAddressExistsMiddleware, 
+                    validateDataMiddleware(addressUpdateReqSchema), 
+                    isAddressOwnerMiddleware, 
+                    updateAddressController
+                  )
 
 export {addressRoutes}

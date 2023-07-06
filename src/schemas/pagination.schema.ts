@@ -6,4 +6,4 @@ export const paginateSchema=z.object({
     prev: z.string().nullable(),
     count:z.number(),
     maxPage:z.number(),
-})
+});

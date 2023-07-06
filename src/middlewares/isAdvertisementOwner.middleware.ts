@@ -6,7 +6,7 @@ const isAdvertisementOwnerMiddleware = (req: Request, res: Response, next: NextF
     const advertisement = req.foundById;
     const loggedUser = req.loggedUser;
 
-    if(advertisement.user.id != loggedUser.id){
+    if (advertisement.user.id != loggedUser.id) {
         throw new AppError("You do not have permission to manage this advertisement", 401);        
     }
 

@@ -2,17 +2,19 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { AppError } from "../../errors";
-import { TAdvertisementSchema, advertisementSchema } from "../../schemas/advertisements.schema";
+import { advertisementSchema } from "../../schemas/advertisements.schema";
+import { TAdvertisementSchema } from "../../interfaces/advertisements.interfaces";
 import { GalleryAdvertisement } from "../../entities/galleryAdvertisement.entity";
-import { TGalleryAdvertisementListRes } from "../../interfaces/galleryAnnounces.interfaces";
 
 
 
 const updateAdvertisementService = async (data: any, advertisementId: string): Promise<TAdvertisementSchema> => {
     
     const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
+    const advertisement: Advertisement | null = await advertisementRepository.findOneBy({
+        id: advertisementId 
+    })
     const galleryAdvertisementRepository: Repository<GalleryAdvertisement> = AppDataSource.getRepository(GalleryAdvertisement)
-    const advertisement: Advertisement | null = await advertisementRepository.findOneBy({ id: advertisementId })
 
     if (!advertisement) {
         throw new AppError("Advertisement not found", 404)
@@ -36,7 +38,8 @@ const updateAdvertisementService = async (data: any, advertisementId: string): P
     const updatedAdvertisement = await advertisementRepository.findOne({
         where: {
             id: advertisementId
-        }, relations: {
+        }, 
+        relations: {
             user: true,
             comments: true,
             galleryAdvertisement: true
@@ -75,4 +78,4 @@ const updateAdvertisementService = async (data: any, advertisementId: string): P
 
 }
 
-export { updateAdvertisementService}
+export { updateAdvertisementService }

@@ -3,11 +3,11 @@ import { ZodError } from "zod";
 import 'dotenv/config'
 
 
-class AppError extends Error{
+class AppError extends Error {
     statusCode: number;
     message: string;
 
-    constructor(message: string, statusCode: number){
+    constructor(message: string, statusCode: number) {
         super()
         this.message = message
         this.statusCode = statusCode
@@ -15,14 +15,14 @@ class AppError extends Error{
 }
 
 const handleError = (err: Error, req: Request, res: Response, _:NextFunction) => {
-    if(err instanceof AppError) {
+    if (err instanceof AppError) {
         return res.status(err.statusCode).json({
             details: err.message
         })
     }
 
-    if(err instanceof ZodError){
-        if(process.env.NODE_ENV=='dev'){
+    if (err instanceof ZodError) {
+        if (process.env.NODE_ENV == 'dev') {
             console.log(err) 
         }
         return res.status(400).json({
@@ -30,7 +30,7 @@ const handleError = (err: Error, req: Request, res: Response, _:NextFunction) =>
         })
     }
 
-    else if(process.env.NODE_ENV=='dev'){
+    else if (process.env.NODE_ENV == 'dev') {
         console.log(err)
     }
 

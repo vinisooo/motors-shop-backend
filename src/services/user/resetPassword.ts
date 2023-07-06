@@ -15,7 +15,7 @@ const resetPassword = async (password: string, resetToken: string) => {
         }
     })
 
-    if(!user){
+    if(!user) {
         throw new AppError("user not found", 404)
     }
 
@@ -31,4 +31,4 @@ const resetPassword = async (password: string, resetToken: string) => {
 
 }
 
-export {resetPassword}
+export { resetPassword }

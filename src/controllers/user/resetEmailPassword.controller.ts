@@ -3,7 +3,7 @@ import { sendEmailResetPassword } from "../../services/user/sendEmailResetPasswo
 import { resetPassword } from "../../services/user/resetPassword";
 
 
-const sendResetEmailPassword = async(req: Request, res: Response) => {
+const sendResetEmailPassword = async (req: Request, res: Response) => {
     const { email } = req.body
 
     await sendEmailResetPassword(email)
@@ -13,8 +13,8 @@ const sendResetEmailPassword = async(req: Request, res: Response) => {
 
 
 const resetPasswordUser= async(req: Request, res: Response)=>{
-    const {password} = req.body
-    const {token} = req.params
+    const { password } = req.body
+    const { token } = req.params
 
     await resetPassword(password, token)
     
@@ -22,4 +22,4 @@ const resetPasswordUser= async(req: Request, res: Response)=>{
 }
 
 
-export {sendResetEmailPassword,resetPasswordUser}
+export { sendResetEmailPassword, resetPasswordUser }

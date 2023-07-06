@@ -3,7 +3,7 @@ import { AppDataSource } from "../data-source";
 import { AppError } from "../errors";
 import { Address } from "../entities/address.entity";
 
-const ensureAddressExistsMiddleware = async(req: Request, res: Response, next: NextFunction) => {
+const ensureAddressExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const addressRepository = AppDataSource.getRepository(Address);
 
     const addressId: string = req.params.id
@@ -14,7 +14,7 @@ const ensureAddressExistsMiddleware = async(req: Request, res: Response, next: N
         }
     })
 
-    if(!address){
+    if (!address) {
         throw new AppError("Address not found", 404);
     }
     
