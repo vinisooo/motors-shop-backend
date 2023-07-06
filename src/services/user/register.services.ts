@@ -11,10 +11,14 @@ const registerUserService = async(data: User) => {
     const addressData: Address = data.address;
 
     const address = addressRepository.create(addressData);
-    const newAddress=await addressRepository.save(address);
+    const newAddress = await addressRepository.save(address);
 
-    const user = userRepository.create({...data, address: newAddress});
-    const newUser=await userRepository.save(user);
+    const user = userRepository.create({
+        ...data,
+        address: newAddress
+    });
+
+    const newUser = await userRepository.save(user);
 
     return userResSchema.parse(newUser);
 }

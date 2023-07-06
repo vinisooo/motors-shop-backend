@@ -2,14 +2,17 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Advertisement } from "../../entities/advertisement.entity";
 import { AppError } from "../../errors";
-import { TAdvertisementSchema, advertisementSchema } from "../../schemas/advertisements.schema";
+import { advertisementSchema } from "../../schemas/advertisements.schema";
+import { TAdvertisementSchema } from "../../interfaces/advertisements.interfaces";
 
 
 
 const updateAdvertisementService = async (data: any, advertisementId: string): Promise<TAdvertisementSchema> => {
     
     const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
-    const advertisement: Advertisement | null = await advertisementRepository.findOneBy({ id: advertisementId })
+    const advertisement: Advertisement | null = await advertisementRepository.findOneBy({
+        id: advertisementId 
+    })
 
     if (!advertisement) {
         throw new AppError("Advertisement not found", 404)
@@ -33,7 +36,8 @@ const updateAdvertisementService = async (data: any, advertisementId: string): P
     const updatedAdvertisement = await advertisementRepository.findOne({
         where: {
             id: advertisementId
-        }, relations: {
+        }, 
+        relations: {
             user: true,
             comments: true,
             galleryAdvertisement: true
@@ -47,4 +51,4 @@ const updateAdvertisementService = async (data: any, advertisementId: string): P
 
 }
 
-export { updateAdvertisementService}
+export { updateAdvertisementService }

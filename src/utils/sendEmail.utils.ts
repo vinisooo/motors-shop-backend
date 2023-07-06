@@ -6,7 +6,7 @@ import { TUserUpdateReqPassword } from "../interfaces/users.interfaces";
 
 
 class EmailService {
-    async sendEmail({to,subject,text}:TUserUpdateReqPassword){
+    async sendEmail({to,subject,text}: TUserUpdateReqPassword) {
 
         const trasnporter = createTransport({
             host: "smtp.gmail.com",
@@ -31,7 +31,7 @@ class EmailService {
     }
 
 
-    resetPasswordTemplate(userName:string, userEmail: string, resetToken: string){
+    resetPasswordTemplate(userName: string, userEmail: string, resetToken: string){
 
         const mailGenerator = new Mailgen({
             theme: 'default',
@@ -71,4 +71,4 @@ class EmailService {
 
 const emailService = new EmailService()
 
-export {emailService}
+export { emailService }

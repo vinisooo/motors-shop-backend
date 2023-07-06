@@ -5,26 +5,28 @@ import { AppDataSource } from "../../data-source";
 import { compare } from "bcryptjs";
 import { AppError } from "../../errors";
 import  Jwt  from "jsonwebtoken";
-import { tUserLogin } from '../../schemas/login.schemas';
+import { TUserLogin } from '../../interfaces/users.interfaces';
 
 const secretKey=process.env.SECRET_KEY!
 
-const loginService=async(data:tUserLogin):Promise<string>=>{
+const loginService = async (data:TUserLogin): Promise<string> => {
 
-    const userRepository:Repository<User>= AppDataSource.getRepository(User)
-    const userFind=await userRepository.findOneBy({email:data.email})
+    const userRepository: Repository<User> = AppDataSource.getRepository(User)
+    const userFind = await userRepository.findOneBy({
+        email: data.email
+    })
 
-    if(!userFind){
+    if(!userFind) {
         throw new AppError('user email or password invalid', 400)
     }  
     
-    const passwordIsValid= await compare(data.password,userFind.password)
+    const passwordIsValid = await compare(data.password, userFind.password)
     
-    if(!passwordIsValid){
+    if(!passwordIsValid) {
         throw new AppError('user email or password invalid', 400)
     } 
 
-    const token:string=Jwt.sign(
+    const token: string = Jwt.sign (
         {
 
         },
@@ -38,4 +40,4 @@ const loginService=async(data:tUserLogin):Promise<string>=>{
     return token
 }
 
-export {loginService}
+export { loginService }
