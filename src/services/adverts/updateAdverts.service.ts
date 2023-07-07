@@ -9,7 +9,7 @@ import { GalleryAdvertisement } from "../../entities/galleryAdvertisement.entity
 
 
 const updateAdvertisementService = async (data: any, advertisementId: string): Promise<TAdvertisementSchema> => {
-    
+    console.log(data)
     const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
     const advertisement: Advertisement | null = await advertisementRepository.findOneBy({
         id: advertisementId 
@@ -48,7 +48,7 @@ const updateAdvertisementService = async (data: any, advertisementId: string): P
 
     const validatedAdvertisement = advertisementSchema.parse(updatedAdvertisement)
 
-    if (data.galleryAdvertisement && data.galleryAdvertisement.length > 0) {
+    if (data.galleryAdvertisement) {
         const galleryImages: {"imageUrl":string, "id"?:string | null}[] = [];
     
         await galleryAdvertisementRepository.delete({
