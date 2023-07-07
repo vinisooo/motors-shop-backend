@@ -7,7 +7,7 @@ import { GalleryAdvertisement } from "../../entities/galleryAdvertisement.entity
 declare global {
     namespace Express {
         interface Request {
-            foundById: Comment | Address | User | Advertisement | GalleryAdvertisement,
+            foundById: Comment | Address | User | Advertisement | GalleryAdvertisement | any,
             loggedUser: {isAdvertiser: boolean, id: string}
         }
     }
