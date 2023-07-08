@@ -3,6 +3,6 @@
 set -o errexit
 
 yarn
-yarn swagger-autogen
+yarn node ./dist/swagger.js
 yarn build
 yarn typeorm migration:run -d dist/data-source
