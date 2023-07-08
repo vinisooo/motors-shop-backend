@@ -22,7 +22,7 @@ const createCommentService = async (body: TCommentReq, postId: string, userId: s
     })
 
     if(!user || !advertisement) {
-        throw new AppError("user or advert not exists", 400)
+        throw new AppError("user or advert does not not exist", 400)
     }
 
     const comment = {
