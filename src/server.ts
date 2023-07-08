@@ -2,7 +2,7 @@ import { app } from "./app";
 import { AppDataSource } from "./data-source";
 import 'dotenv/config'
 const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('./swagger.json')
+const swaggerFile = require('./etc/secrets/swagger.json')
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
