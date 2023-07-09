@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import updateUserService from "../../services/user/updateUser.services";
+import updateUserService from "../../services/user/updateUser.service";
 
 const updateUserController = async (req: Request, res: Response) => {
     const userId = req.loggedUser.id

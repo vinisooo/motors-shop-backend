@@ -8,7 +8,7 @@ import { GalleryAdvertisement } from "../../entities/galleryAdvertisement.entity
 
 
 
-const updateAdvertisementService = async (data: TAdvertisementUpdateReqSchema, advertisementId: string): Promise<TAdvertisementSchema> => {
+const updateAdvertisementService = async (data: any, advertisementId: string)=> {
 
   const advertisementRepository: Repository<Advertisement> = AppDataSource.getRepository(Advertisement)
   const advertisement: Advertisement | null = await advertisementRepository.findOneBy({
@@ -47,7 +47,7 @@ const updateAdvertisementService = async (data: TAdvertisementUpdateReqSchema, a
       }
   })
 
-  const validatedAdvertisement = advertisementSchema.parse(updatedAdvertisement)
+  const validatedAdvertisement = advertisementSchema.deepPartial().parse(updatedAdvertisement)
 
   if (data.galleryAdvertisement) {
       const galleryImages: {"imageUrl":string, "id"?:string | null}[] = [];

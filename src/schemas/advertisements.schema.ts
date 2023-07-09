@@ -62,6 +62,6 @@ export const advertisementListUserPaginatedResSchema=advertisementListPaginatedR
     })
 });
 
-export const advertisementUpdateReqSchema = advertisementReqSchema.partial();
+export const advertisementUpdateReqSchema = advertisementReqSchema.deepPartial();
 
 
