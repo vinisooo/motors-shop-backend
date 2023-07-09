@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAllCommentsService } from "../../services/comments/getAllCommentsService";
+import { getAllCommentsService } from "../../services/comments/getAllComments.service";
 
 const getAllCommentsController = async (req:Request, res:Response) => {
 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { sendEmailResetPassword } from "../../services/user/sendEmailResetPassword";
-import { resetPassword } from "../../services/user/resetPassword";
+import { sendEmailResetPassword } from "../../services/user/sendEmailResetPassword.service";
+import { resetPassword } from "../../services/user/resetPassword.service";
 
 
 const sendResetEmailPassword = async (req: Request, res: Response) => {
