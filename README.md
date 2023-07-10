@@ -15,11 +15,11 @@
 * <img width="30px" height="30px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/540px-Postgresql_elephant.svg.png" alt="PostgreSQL"> PostgreSQL
 
 ## Links importantes
-* [Repositório do FrontEnd](https://github.com/grupo32-t14-gustavo/frontend).
-* [Deploy do FrontEnd](https://github.com/grupo32-t14-gustavo/frontend).
+* [Repositório do FrontEnd](https://github.com/vinisooo/motors-shop-frontend/).
+* [Deploy do FrontEnd](https://motors-shop-frontend-theta.vercel.app/).
   
-* [Repositório do BackEnd](https://github.com/grupo32-t14-gustavo/backend).
-* [Documentação da API](https://github.com/grupo32-t14-gustavo/backend).
+* [Repositório do BackEnd](https://github.com/vinisooo/motors-shop-backend).
+* [Documentação da API](https://motorsshop-w0l3.onrender.com/doc/).
 * [Deploy da API](https://motorsshop-w0l3.onrender.com).
 
 # Motors Shop
@@ -93,7 +93,7 @@ O front-end do projeto agora deve estar disponível em `http://localhost:3000`.
 `npm run dev`
 
 
-O back-end do projeto agora deve estar disponível na porta escolhida em seu .env ou em `http://localhost:3001`.
+O back-end do projeto agora deve estar disponível na porta escolhida em seu .env ou em `https://motorsshop-w0l3.onrender.com`.
 
 ## Desenvolvedores
 <table>
