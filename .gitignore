@@ -1,3 +1,4 @@
 node_modules/
 .env
 SQLITE3.db
+dist
