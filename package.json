@@ -9,7 +9,7 @@
     "start": "node dist/server.js",
     "typeorm": "typeorm-ts-node-commonjs",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "swagger-autogen": "node ./src/swagger.ts"
+    "swagger-autogen": "ts-node ./src/swagger.ts"
   },
   "keywords": [],
   "author": "",
@@ -44,6 +44,7 @@
     "@types/nodemailer": "^6.4.8",
     "@types/pg": "^8.10.1",
     "@types/pg-format": "^1.0.2",
+    "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"
   }

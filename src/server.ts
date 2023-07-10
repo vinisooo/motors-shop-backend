@@ -19,4 +19,3 @@ AppDataSource.initialize()
     }).catch((err: unknown) => {
         console.log(err);
     })
-
