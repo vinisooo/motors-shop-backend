@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getLoggedUserService } from "../../services/user/getLoggedUser.services";
+import { getLoggedUserService } from "../../services/user/getLoggedUser.service";
 
 const getLoggedUserController = async (req: Request, res: Response) => {
     const loggedUser = req.loggedUser;

@@ -15,7 +15,7 @@ export const advertisementSchema = z.object({
     price: z.string(),
     coverImage: z.string().max(150),
     description: z.string(),
-    isAvailable: z.boolean(),
+    isAvailable: z.boolean().optional().default(true),
     user: userResSchema.omit({address:true}),
     createdAt: z.date(),
     updatedAt: z.date().nullable(),
@@ -30,7 +30,6 @@ export const advertisementReqSchema= advertisementSchema.omit({
     id: true,
     createdAt: true,
     updatedAt: true,
-    isAvailable: true,
     user: true,
     comments:true,
     price: true,
@@ -63,6 +62,6 @@ export const advertisementListUserPaginatedResSchema=advertisementListPaginatedR
     })
 });
 
-export const advertisementUpdateReqSchema = advertisementReqSchema.partial();
+export const advertisementUpdateReqSchema = advertisementReqSchema.deepPartial();
 
 

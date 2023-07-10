@@ -49,7 +49,7 @@ class User {
     @JoinColumn()
     address: Address
 
-    @OneToMany(() => Comment, comments => comments.user)
+    @OneToMany(() => Comment, comments => comments.user, { onDelete: "CASCADE" })
     comments: Comment[]
 
     @OneToMany(() => Advertisement, advertisements => advertisements.user, { onDelete: "CASCADE" })

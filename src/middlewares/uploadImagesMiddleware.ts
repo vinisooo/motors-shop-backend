@@ -17,23 +17,30 @@ const uploadAdvertImagesMiddleware = async(req: Request, res: Response, next: Ne
                 req.body.coverImage = result.url;
             });
         }
+        let imagesFile: string[] = []
         if(files["galleryAdvertisement[]"]){
             const galleryAdvertisement = files["galleryAdvertisement[]"];
-            let imageUrls: string[] = []
+            
             for(const img of galleryAdvertisement) {
-                if(typeof img === "string"){
-                    imageUrls.push(img)
-                }
                 await cloudinary.uploader.upload(img.path, async(err: unknown, result: {url: string}) => {
                     if(err){
                         console.log(err)
                         throw new AppError("Internal Server Error", 500)
                     }
 
-                    imageUrls.push(result.url)
+                    imagesFile.push(result.url)
                 })
             }
-            req.body.galleryAdvertisement = imageUrls.map((img) => {
+        }
+        if(req.body.galleryAdvertisement){
+            let imagesLinkFile = [...req.body.galleryAdvertisement, ...imagesFile]
+            req.body.galleryAdvertisement = imagesLinkFile.map((img: string) => {
+                return {
+                    imageUrl: img
+                }
+            })
+        }else{
+            req.body.galleryAdvertisement = imagesFile.map((img) => {
                 return {
                     imageUrl: img
                 }
@@ -41,6 +48,7 @@ const uploadAdvertImagesMiddleware = async(req: Request, res: Response, next: Ne
         }
     }
 
+    req.body.isAvailable = req.body.isAvailable === "false" ?  false : true
     req.body.fipeDeal = req.body.fipeDeal === "false" ?  false : true
     req.body.price = Number(req.body.price) ? Number(req.body.price) : req.body.price;
     req.body.year = Number(req.body.year) ? Number(req.body.year) : req.body.year;
